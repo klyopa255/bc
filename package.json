@@ -1,0 +1,59 @@
+{
+  "name": "BusinessClub",
+  "version": "1.0.0",
+  "description": "Business club project.",
+  "scripts": {
+    "bemlint": "bemlint build/*.html --mod='--'",
+    "puglint": "glob-exec \"src/**/*.pug\" -- \"pug-lint {{files.join(' ')}}\"",
+    "stylelint": "stylelint \"src/scss/**/*.scss\" --syntax=scss",
+    "start": "gulp",
+    "lint-staged": "lint-staged"
+  },
+  "author": "klyopa255",
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js,pug,md}": "editorconfig-cli",
+    "*.pug": "pug-lint",
+    "*.scss": "stylelint --syntax=scss"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@htmlacademy/editorconfig-cli": "^1.0.0",
+    "autoprefixer": "^9.0.2",
+    "bemlint": "^1.6.1",
+    "browser-sync": "^2.14.0",
+    "del": "^5.1.0",
+    "glob-exec": "^0.1.1",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-pretty-html": "^2.0.9",
+    "gulp-pug": "^4.0.1",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.1",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.3",
+    "pug-lint": "^2.5.0",
+    "stylelint": "^11.1.1",
+    "stylelint-order": "^3.1.1",
+    "stylelint-selector-bem-pattern": "^2.0.0"
+  },
+  "dependencies": {
+    "svg4everybody": "^2.1.9"
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 3%"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+extends ../pug/layout.pug
+
+block meta
+  title Главная
+  meta(name='description', content='')
+
+//- block append head
+//-   link(rel='stylesheet', href='css/some.css')
+
+block header
+  header.page-header.page-header--active
+    .page-header__container
+      .logo
+        a(href="#").logo__link
+          img(src="/img/logo.png", alt="")
+
+      nav.main-nav.main-nav--mobile.main-nav--active
+        ul.main-nav__list
+          li.main-nav__item
+            a(href="#").main-nav__link Главная
+          li.main-nav__item
+            a(href="#").main-nav__link О нас
+          li.main-nav__item
+            a(href="#").main-nav__link Продукт
+          li.main-nav__item
+            a(href="#").main-nav__link Преимущества
+          li.main-nav__item
+            a(href="#").main-nav__link Дорожная карта клуба
+          li.main-nav__item
+            a(href="#").main-nav__link FAQ
+          li.main-nav__item
+            a(href="#").main-nav__link Контакты
+
+      .lang.lang--active
+        ul.lang__list
+          li.lang__item.lang__item--current ru
+          li.lang__item en
+
+      button.main-nav__button.main-nav__button--active
+
+block content
+  .page__container
+    main.page__main
+      ul.sections__list
+        li.sections__item
+          section.section
+            .section__container
+              h1.section__title Insight Business Club
+              p.section__promo Международное сообщество для бизнеса и инвестиций
+              a(href="#").button.section__button Узнать больше
+              p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae eos reprehenderit debitis explicabo qui iure illum hic. Alias, repellendus. Ipsum fuga, qui consequuntur quo ratione nesciunt enim corrupti commodi sunt architecto nobis iure? Eligendi, accusantium harum? Optio velit sunt dolores nemo alias voluptas dignissimos vitae fuga facere voluptatem, culpa sapiente praesentium a dicta aliquid ea, nostrum voluptatibus cum aperiam quibusdam molestiae impedit, vel atque! Officia labore fugit incidunt et expedita quia assumenda tenetur voluptatum sint similique omnis non dolor nesciunt veniam libero excepturi neque nostrum inventore, eaque rem quod ducimus! Eos inventore porro culpa aliquam reiciendis sunt repudiandae similique aspernatur quod. Cumque at aut dolorum laudantium esse consectetur cum est hic blanditiis tempore harum non, nam suscipit saepe recusandae ea totam cupiditate temporibus vel. Nostrum natus, nobis voluptates est delectus nulla, porro inventore hic facilis officia ipsa vero ipsam sunt quisquam dolorum reprehenderit unde ullam molestiae perspiciatis odio, sequi aliquam? Repellat, veniam tempora. Adipisci perferendis error ea odit deserunt possimus expedita. Repellat sed rem, tempore dolorum eos aut itaque nam vitae laudantium accusantium dolorem facere libero. Perferendis ea maiores quo incidunt eius assumenda placeat veniam quidem atque rem illo id asperiores odio, distinctio, consequuntur dicta voluptates officiis. A, qui repellat.
+
+
+//- block footer
+//-   p footer
+
+//- block append page-bottom
+//-   script(src='js/some.js')

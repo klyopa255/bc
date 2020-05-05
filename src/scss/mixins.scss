@@ -1,0 +1,54 @@
+@mixin container {
+  padding: 0 15px;
+}
+
+@mixin flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@mixin flex-container-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin img {
+  width: 100%;
+  height: auto;
+}
+
+@mixin iframe {
+  width: 100%;
+  height: auto;
+}
+
+@mixin img-height {
+  height: 100%;
+  width: auto;
+  margin: 0 auto;
+}
+
+@mixin section-title {
+  font-family: $helvetica-light;
+  font-size: $h2-size;
+  font-weight: normal;
+  margin: 0 0 40px;
+  color: $title-color;
+}
+
+@mixin half {
+  width: 49%;
+}
+
+@mixin text {
+  font-family: $helvetica-thin;
+  font-size: $text-size;
+  line-height: 1.5em;
+}
