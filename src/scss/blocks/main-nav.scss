@@ -58,5 +58,27 @@
 
   &--mobile {
     order: 2;
+
+    & .main-nav {
+
+      &__list {
+        padding: 10vh 0;
+      }
+
+      &__item {
+        margin-bottom: 5vh;
+      }
+
+      &__link {
+        font-family: $pf-bold;
+        font-size: 24px;
+        text-transform: uppercase;
+        text-decoration: none;
+
+        &--current {
+          color: #4196ff;
+        }
+      }
+    }
   }
 }
