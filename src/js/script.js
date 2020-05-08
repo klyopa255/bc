@@ -1,11 +1,183 @@
-// function ready(fn) {
-//   if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
-//     fn();
-//   } else {
-//     document.addEventListener('DOMContentLoaded', fn);
-//   }
-// }
-//
-// ready(function(){
-//   console.log('DOM ready');
-// });
+function ready(fn) {
+  if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading'){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+const BCApp = {
+
+  elems: {
+
+    header: document.querySelector('.page-header'),
+    navButton: document.querySelector('.main-nav__button'),
+    lang: document.querySelector('.lang'),
+    langCurrent: document.querySelector('.lang__current'),
+    langListWrapper: document.querySelector('.lang__list'),
+    langList: document.querySelectorAll('.lang__item'),
+    langAct: document.querySelector('.lang__item--current'),
+    sectWrapper: document.querySelector('.sections__list'),
+    sectList: document.querySelectorAll('.sections__item'),
+    actSect: '',
+    sectContainer: document.querySelectorAll('.section__container'),
+    nav: document.querySelector('.main-nav'),
+    navList: document.querySelectorAll('.main-nav__item'),
+    navItemAct: ''
+
+  },
+
+  selectors: {
+
+    headerActClass: 'page-header--active',
+    navButtonActClass: 'main-nav__button--active',
+    langActClass: 'lang--active',
+    langListWrapperActClass: 'lang__list--active',
+    langItemClass: 'lang__item',
+    langItemActClass: 'lang__item--current',
+    navActClass: 'main-nav--active',
+    navItemActClass: 'main-nav__item--current',
+    sectActClass: 'sections__item--active'
+
+  },
+
+  hashes: [],
+
+  actClassToggle: function (el, actClass) {
+    if (el && actClass) {
+      el.classList.toggle(actClass);
+    }
+  },
+
+  burgerNav: function () {
+    this.elems.navButton.addEventListener('click', (e) => {
+      this.actClassToggle(this.elems.navButton, this.selectors.navButtonActClass);
+      this.actClassToggle(this.elems.header, this.selectors.headerActClass);
+      this.actClassToggle(this.elems.lang, this.selectors.langActClass);
+      this.actClassToggle(this.elems.nav, this.selectors.navActClass);
+    });
+  },
+
+  lang: function () {
+    this.elems.lang.addEventListener('click', (e) => {
+      this.actClassToggle(this.elems.langListWrapper, this.selectors.langListWrapperActClass);
+      if(e.target.classList.contains(this.selectors.langItemClass)) {
+        this.elems.langCurrent.innerHTML = e.target.dataset.name;
+        this.elems.langAct.classList.remove(this.selectors.langItemActClass);
+        e.target.classList.add(this.selectors.langItemActClass);
+        this.elems.langAct = e.target;
+      }
+    });
+  },
+
+  menuToggle: function () {
+
+    this.elems.navList.forEach((el, i) => {
+
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.elems.navItemAct.classList.remove(this.selectors.navItemActClass);
+        el.classList.add(this.selectors.navItemActClass);
+        this.elems.navItemAct = el;
+        this.elems.actSect.classList.remove(this.selectors.sectActClass);
+        this.elems.sectList[i].classList.add(this.selectors.sectActClass);
+        this.elems.actSect = this.elems.sectList[i];
+        this.updateLocation(this.elems.actSect);
+
+      });
+    });
+  },
+
+  countToggle: function (indication) {
+
+    if (((1*this.elems.navItemAct.dataset.num<this.elems.navList.length-1)&&(indication>0))||((1*this.elems.navItemAct.dataset.num>0)&&(indication<0))) {
+      this.elems.navItemAct.classList.remove(this.selectors.navItemActClass);
+      this.elems.navList[1*this.elems.navItemAct.dataset.num+indication].classList.add(this.selectors.navItemActClass);
+      this.elems.navItemAct = this.elems.navList[1*this.elems.navItemAct.dataset.num+indication];
+
+      this.elems.actSect.classList.remove(this.selectors.sectActClass);
+      this.elems.sectList[1*this.elems.actSect.dataset.num+indication].classList.add(this.selectors.sectActClass);
+      this.elems.actSect = this.elems.sectList[1*this.elems.actSect.dataset.num+indication];
+
+      this.updateLocation(this.elems.actSect);
+    }
+  },
+
+  mouseWheel: function () {
+
+    this.elems.sectWrapper.addEventListener('wheel', (e) => {
+
+      e.preventDefault();
+      if (e.deltaY>0) this.countToggle(1);
+      else if (e.deltaY<0) this.countToggle(-1);
+
+    });
+  },
+
+  location: function () {
+
+    this.hashes = (() => {
+      let hashes = [];
+      this.elems.navList.forEach((el) => {
+        hashes.push(el.dataset.name);
+      });
+      return hashes;
+    })();
+    if(location.hash!=='') {
+      let hash = location.hash.slice(1),
+          test;
+      for(let i = this.hashes.length; i--;) {
+        if (this.hashes[i] === hash) test = true;
+      }
+      if (test) {
+        this.elems.navList.forEach((el, i, arr) => {
+          if(el.dataset.name === hash) {
+            el.classList.add(this.selectors.navItemActClass);
+            this.elems.navItemAct = el;
+          }
+        });
+        this.elems.sectList.forEach((el, i, arr) => {
+          if(el.dataset.name === hash) {
+            el.classList.add(this.selectors.sectActClass);
+            this.elems.actSect = el;
+          }
+        });
+      }
+    } else {
+      this.elems.navList[0].classList.add(this.selectors.navItemActClass);
+      this.elems.navItemAct = this.elems.navList[0];
+      this.elems.sectList[0].classList.add(this.selectors.sectActClass);
+      this.elems.actSect = this.elems.sectList[0];
+    }
+
+  },
+
+  updateLocation: function (locationPoint) {
+
+    location.hash = locationPoint.dataset.name;
+
+  },
+
+
+  run: function () {
+
+    this.burgerNav();
+    this.lang();
+    this.location();
+
+    if(document.documentElement.clientWidth>1023) {
+      this.menuToggle();
+      this.mouseWheel();
+    }
+
+  }
+
+};
+
+ready(function(){
+  console.log('DOM ready');
+
+  console.log(document.documentElement.clientWidth);
+
+  BCApp.run();
+});
