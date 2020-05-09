@@ -12,11 +12,11 @@ block header
     .page-header__container
       .logo
         a(href="/").logo__link
-          img(src="/img/logo.png", alt="")
+          img(src="/img/logo-d.svg", alt="")
 
-      nav.main-nav.main-nav--mobile
+      nav.main-nav
         ul.main-nav__list
-          li.main-nav__item.main-nav__item--current(data-name="wellcome", data-num="0")
+          li.main-nav__item.main-nav__item(data-name="wellcome", data-num="0")
             a(href="#wellcome").main-nav__link Главная
           li.main-nav__item(data-name="about", data-num="1")
             a(href="#about").main-nav__link О нас
@@ -45,48 +45,153 @@ block content
   .page__container
     main.page__main
       ul.sections__list
+
         li.sections__item(id="wellcome" data-name="wellcome", data-num="0")
-          section.section(style="background-image:url('/img/bg1.jpg');")
-            .section__container
+          section.section.section--top
+            .section__container.section__container--nopadding
               h1.section__title Insight Business Club
               p.section__promo Международное сообщество для бизнеса и инвестиций
               a(href="#").button.section__button Узнать больше
+
         li.sections__item(id="about" data-name="about", data-num="1")
           section.section
-            .section__container
+            .section__img.section__img--about
+            .section__container.section__container--about
               h2.section__title О нас
-              p.section__promo Международное сообщество для бизнеса и инвестиций
-              a(href="#").button.section__button Узнать больше
+              h3 Наша цель
+              p.section__text Помощь опытным предпринимателям и инвесторам находить друг друга
+              h3 Наша миссия
+              p.section__text.section__text--nomargin Объединение материальных и интеллектуальных ресурсов для получения прибыли в любых условиях мировой экономики
+
         li.sections__item(id="product" data-name="product", data-num="2")
           section.section
-            .section__container
+            .section__img.section__img--product
+            .section__container.section__container--product
               h2.section__title Продукт
-              p.section__promo Международное сообщество для бизнеса и инвестиций
-              a(href="#").button.section__button Узнать больше
+              h3 Направление инвестиций
+              p.section__text На сегодняшний день мы выбрали первым направлением инвестиции в стабильно работающее предприятие горнодобывающей промышленности в Африке.
+              a(href="#").button.section__button Узнать подроюнее
+
         li.sections__item(id="advantages" data-name="advantages", data-num="3")
           section.section
-            .section__container
-              h2.section__title Преимущества
-              p.section__promo Международное сообщество для бизнеса и инвестиций
-              a(href="#").button.section__button Узнать больше
+            .section__img.section__img--advantages
+            .section__container.section__container--advantages
+              h2.section__title Наши преимущества
+              ul.slider.owl-carousel.owl-theme
+                li.slider__item
+                  h3 Избирательность и аналитика
+                  p.section__text Качественный отбор перспективных проектов специалистами из разных областей экономики, совместный анализ рисков инвесторами и партнерами сообщества. Продолжительная  успешная история работы выбранных бизнесов для инвестиций.
+                li.slider__item
+                  h3 Международный совместный опыт инвестиций
+                  p.section__text Возможность инвестировать совместно с опытными инвесторами из различных отраслей экономики. Получение инвестиционного опыта в различных отраслевых направлениях.
+                li.slider__item
+                  h3 Стабильность и устойчивость
+                  p.section__text Устойчивая работа проектов сообщества даже в период кризиса мировой экономики. Долгосрочные планы по развитию.
+                li.slider__item
+                  h3 Полная поддержка партнера клуба
+                  p.section__text Техническая, маркетинговая, бухгалтерская, административная поддержка, а также рекомендации от юристов-инвесторов, которые являются частью сообщества.
+                li.slider__item
+                  h3 Юридическая чистота и страхование
+                  p.section__text Юридический анализ сделок и инвестиционного процесса. Страхование сделок.
+                li.slider__item
+                  h3 Отсутствие членского взноса и комиссий за вход и выход
+                  p.section__text Целью клуба является увеличение совместного достатка его членов. На данном этапе членские взносы и иные платежи не рассматриваются.
+
         li.sections__item(id="road-map" data-name="road-map", data-num="4")
           section.section
-            .section__container
+            .section__img.section__img--map
+            .section__container.section__container--map
               h2.section__title Дорожная карта клуба
-              p.section__promo Международное сообщество для бизнеса и инвестиций
-              a(href="#").button.section__button Узнать больше
+              ul.slider.owl-carousel.owl-theme
+                li.slider__item
+                  h3 1. Финансирования товарных сделок
+                  p.section__text Клуб на данный момент сосредоточен на работе с уже действующими предприятиями, которые будут наиболее устойчивыми в период кризиса и возможной предстоящей экономической рецессии.
+                li.slider__item
+                  h3 2. Финансирование переработкис металлов платиновой группы
+                  p.section__text На стадии готовности находится проект по переработке металлов платиновой группы, Клуб переходит на работу по нему, когда достигнут необходимый объём инвестиций для проект. Доходность по нему предполагается выше, чем по этапу 1.
+                li.slider__item
+                  h3 3. Создание новых совместных предприятий по сырьевому рынку
+                  p.section__text По мере активного расширения клуба и привлечения значительных денежных сумм, мы планируем перестраивать нашу работу на более тесное взаимодействие с торговыми партнерами (создание совместных предприятий).
+                li.slider__item
+                  h3 4. Создание международного устойчивого холдинга
+                  p.section__text По вышеуказанным направлениям мы ориентированы на создание международного холдинга по торговле полезными ископаемыми, драгоценными металлами, металлами платиновой группы и другими ценными ресурсами, которые будут востребованы на рынке в любые экономические условия.
+
         li.sections__item(id="faq" data-name="faq", data-num="5")
           section.section
-            .section__container
+            .section__container.section__container--faq
               h2.section__title FAQ
-              p.section__promo Международное сообщество для бизнеса и инвестиций
-              a(href="#").button.section__button Узнать больше
+              ul.accordion
+                li.accordion-list__item
+                  .accordion-item.false
+                    .accordion-item__line
+                      h3.accordion-item__title Что такое бизнес-клуб Инсайт?
+                      span.accordion-item__icon
+                    div.accordion-item__inner
+                      div.accordion-item__content
+                        p.accordion-item__paragraph Бизнес-клуб Инсайт (Инсайт) – это международное сообщество людей, целью которого является инвестирование в перспективные проекты путем объединения своих денежных средств для получения стабильного пассивного дохода.
+                li.accordion-list__item
+                  .accordion-item.false
+                    .accordion-item__line
+                      h3.accordion-item__title Есть ли членский взнос для вступления в клуб?
+                      span.accordion-item__icon
+                    div.accordion-item__inner
+                      div.accordion-item__content
+                        p.accordion-item__paragraph Одним из главных наших преимуществ является то, что вступление в клуб не подразумевает никакого членского взноса. При дальнейшем росте сообщества участников введение членского взноса целесообразно с целью использования бюджета клуба для организации совместных встреч и выездных мероприятий клуба, рекламы и маркетингового продвижения клуба. Обо всех нововведениях заранее будет сообщено на информационных ресурсах клуба.
+
+                li.accordion-list__item
+                  .accordion-item.false
+                    .accordion-item__line
+                      h3.accordion-item__title Какая цель основателей клуба?
+                      span.accordion-item__icon
+                    div.accordion-item__inner
+                      div.accordion-item__content
+                        p.accordion-item__paragraph Основная цель клуба и его основная ценность – это создание сообщества опытных инвесторов из разных точек земного шара для осуществления совместных инвестиций в проекты, приносящие стабильный пассивный доход даже в кризис.
+                li.accordion-list__item
+                  .accordion-item.false
+                    .accordion-item__line
+                      h3.accordion-item__title Зачем основатели организовали клуб, если итак от своих инвестиций они получают стабильный доход?
+                      span.accordion-item__icon
+                    div.accordion-item__inner
+                      div.accordion-item__content
+                        p.accordion-item__paragraph Многие высокодоходные проекты предполагают высокий порог входа, либо не имеют возможности работать с частными лицами. Клуб решает эту проблему путем создания специальных совместных партнерств для объединения своего сообщества инвесторов в единый пул и получения доступа к перспективным проектам.
+                li.accordion-list__item
+                  .accordion-item.false
+                    .accordion-item__line
+                      h3.accordion-item__title За счет чего формируется доход члена клуба?
+                      span.accordion-item__icon
+                    div.accordion-item__inner
+                      div.accordion-item__content
+                        p.accordion-item__paragraph Доход члена клуба формируется за счет выплаты ему соответствующей части прибыли, получаемой партнерством (limited partnership, место регистрации: Великобритания) от софинансирования торговой деятельности зарубежных компаний, работающих на различных сырьевых рынках.
+                li.accordion-list__item
+                  .accordion-item.false
+                    .accordion-item__line
+                      h3.accordion-item__title Выплачивает ли партнерство проценты на средства инвесторов или сделанные инвестиции?
+                      span.accordion-item__icon
+                    div.accordion-item__inner
+                      div.accordion-item__content
+                        p.accordion-item__paragraph Партнерство не является банком и не оказывает услуг по размещению депозитов или инвестированию в ценные бумаги. Партнерство не начисляет процентов, оно дает возможность совместно финансировать торговые сделки предприятий и получать от них доход. Партнерство выплачивает только доход, соответствующий доле инвестора в партнерстве.
+
         li.sections__item(id="contacts" data-name="contacts", data-num="6")
           section.section
-            .section__container
+            .section__img.section__img--contacts
+            .section__container.section__container--contacts
               h2.section__title Контакты
-              p.section__promo Международное сообщество для бизнеса и инвестиций
-              a(href="#").button.section__button Узнать больше
+              ul.contacts__list
+                li.contacts__item.contacts__item--mail
+                  a(href="mailto:example555@gmail.com") example555@gmail.com
+                li.contacts__item.contacts__item--phone
+                  a(href="tel:+12345555555") +1 (234) 555 55 55
+              ul.social__list
+                li.social__item
+                  a.social__link.social__link--tw(href="#twitter") Twitter
+                li.social__item
+                  a.social__link.social__link--insta(href="#insta") Instagramm
+                li.social__item
+                  a.social__link.social__link--in(href="#linkedin") Linkedin
+                li.social__item
+                  a.social__link.social__link--fb(href="#fb") Fb
+
+              a(href="#").button.section__button Перезвоните мне
 
 
 //- block footer

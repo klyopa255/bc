@@ -1,0 +1,38 @@
+.social {
+
+  &__list {
+    @include list;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+
+  &__item {
+    margin-right: 25px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__link {
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    width: 25px;
+    height: 25px;
+
+    &--tw {
+      background: url(/img/twitter.png) center no-repeat;
+    }
+    &--insta {
+      background: url(/img/insta.png) center no-repeat;
+    }
+    &--in {
+      background: url(/img/l-in.png) center no-repeat;
+    }
+    &--fb {
+      background: url(/img/fb.png) center no-repeat;
+    }
+  }
+}

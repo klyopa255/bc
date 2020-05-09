@@ -5,6 +5,7 @@
   text-transform: uppercase;
   font-size: 12px;
   padding: 8px 9px;
+  z-index: 3;
 
   &__current {
     text-decoration: underline;
@@ -36,5 +37,14 @@
 
   &--active {
     display: block;
+  }
+}
+
+@media (min-width: $screen-desktop) {
+
+  .lang {
+    display: block;
+    font-size: 0.85vw;
+    margin-right: 5.47vw;
   }
 }

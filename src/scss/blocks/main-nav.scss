@@ -16,6 +16,7 @@
     top: 27px;
     right: 15px;
     cursor: pointer;
+    z-index: 3;
 
     &::after {
       position: absolute;
@@ -68,16 +69,99 @@
 
       &__item {
         margin-bottom: 5vh;
-      }
 
-      &__link {
-        font-family: $pf-bold;
-        font-size: 24px;
-        text-transform: uppercase;
-        text-decoration: none;
+        & a {
+          font-family: $pf-bold;
+          font-size: 24px;
+          color:$nav-color;
+          text-transform: uppercase;
+          text-decoration: none;
+        }
 
         &--current {
-          color: #4196ff;
+
+          & a {
+            color: #4196ff;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-desktop) {
+
+  .main-nav {
+    display: block;
+    padding-right: 5vw;
+    z-index: 2;
+
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      margin-right: 1.56vw;
+
+      a {
+        font-family: $mp-regular;
+        font-size: 0.85vw;
+        text-transform: uppercase;
+        color: $d-nav-color;
+        text-decoration: none;
+      }
+
+      &--current {
+
+        a {
+          color: #fff;
+        }
+      }
+    }
+
+    &__button {
+      top: 4.1vw;
+      right: 8.75vw;
+      width: 2.35vw;
+      height: 1.15vw;
+
+      &::after {
+        box-shadow: 0px 0px 0px 1px #fff, 0px 0.52vw 0px 1px #fff, 0px 1.1vw 0px 1px #fff;
+      }
+
+      &--active {
+        width: 2.5vw;
+        height: 2.5vw;
+        top: 3.4vw;
+        border-radius: 50%;
+        box-shadow: 0 0 1px 2px #939393;
+
+        &::after, &::before {
+          position: absolute;
+          content: '';
+          box-shadow: none;
+          width: 1.2vw;
+          height: 1px;
+          top: 1.2vw;
+          left: 0.6vw;
+          background-color: #fff;
+          transform: rotate(45deg);
+        }
+
+        &::before {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+
+    &--mobile {
+
+      & .main-nav {
+
+        &__list {
+          flex-direction: column;
+          padding-left: 30vw;
         }
       }
     }

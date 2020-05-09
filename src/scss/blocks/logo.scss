@@ -1,0 +1,19 @@
+.logo {
+  width: 122px;
+  z-index: 3;
+
+  & a {
+    display: block;
+  }
+
+  & img {
+    @include img;
+  }
+}
+
+@media (min-width: $screen-desktop) {
+
+  .logo {
+    width: 11vw;
+  }
+}

@@ -98,6 +98,12 @@ function copyFonts() {
 }
 exports.copyFonts = copyFonts;
 
+function copyPlugins() {
+  return src(dir.src + 'plugins/**/*')
+    .pipe(dest(dir.build + 'plugins/'));
+}
+exports.copyPlugins = copyPlugins;
+
 function clean() {
   return del(dir.build)
 }
@@ -129,6 +135,6 @@ function serve() {
 
 exports.default = series(
   clean,
-  parallel(compileStyles, compilePug, processJs, copyJsVendors, copyImages, copyFonts),
+  parallel(compileStyles, compilePug, processJs, copyJsVendors, copyImages, copyFonts, copyPlugins),
   serve
 );

@@ -5,8 +5,19 @@
   text-align: center;
   text-decoration: none;
   width: 290px;
-  padding: 10px 40px;
+  padding: 10px 30px;
   color: #fff;
   background: transparent;
   border: 2px solid #fff;
+}
+
+@media (min-width: $screen-desktop) {
+
+  .button {
+    display: block;
+    width: 12.25vw;
+    font-size: 1.04vw;
+    margin: 0 auto;
+    padding: 0.7vw 0;
+  }
 }

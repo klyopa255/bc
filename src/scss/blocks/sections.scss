@@ -3,12 +3,19 @@
   &__list {
     @include list;
   }
+}
 
-  &__item {
-    //display: none;
+@media (min-width: $screen-desktop) {
 
-    &--active {
-      display: block;
+  .sections {
+
+    &__item {
+      display: none;
+      height: 100vh;
+
+      &--active {
+        display: block;
+      }
     }
   }
 }

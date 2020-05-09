@@ -1,5 +1,9 @@
 @mixin container {
   padding: 0 15px;
+
+  @media (min-width: $screen-desktop) {
+    padding: 0 8.6vw;
+  }
 }
 
 @mixin flex-container {

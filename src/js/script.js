@@ -36,6 +36,7 @@ const BCApp = {
     langItemClass: 'lang__item',
     langItemActClass: 'lang__item--current',
     navActClass: 'main-nav--active',
+    navMobClass: 'main-nav--mobile',
     navItemActClass: 'main-nav__item--current',
     sectActClass: 'sections__item--active'
 
@@ -55,6 +56,7 @@ const BCApp = {
       this.actClassToggle(this.elems.header, this.selectors.headerActClass);
       this.actClassToggle(this.elems.lang, this.selectors.langActClass);
       this.actClassToggle(this.elems.nav, this.selectors.navActClass);
+      this.actClassToggle(this.elems.nav, this.selectors.navMobClass);
     });
   },
 
@@ -164,9 +166,9 @@ const BCApp = {
     this.burgerNav();
     this.lang();
     this.location();
+    this.menuToggle();
 
     if(document.documentElement.clientWidth>1023) {
-      this.menuToggle();
       this.mouseWheel();
     }
 
@@ -180,4 +182,36 @@ ready(function(){
   console.log(document.documentElement.clientWidth);
 
   BCApp.run();
+
+  if ($('.owl-carousel.owl-carousel').length) {
+    $('.owl-carousel.owl-carousel').owlCarousel({
+      items: 1,
+      nav: true,
+      dots: true,
+      //margin: 15,
+    //   responsiveClass: true,
+    //   responsive:{
+    //     0:{
+    //       items: 1,
+    //       nav: false,
+    //       dots: true
+    //     },
+    //     481:{
+    //         items: 2,
+    //         nav: true
+    //     },
+    //     767:{
+    //         items: 3,
+    //         nav: true
+    //     }
+    // }
+    });
+  }
+
+  $(".accordion-item__line").click(function () {
+    var container = $(this).parents(".accordion-list__item");
+    var answer = container.find(".accordion-item");
+    answer.toggleClass("accordion-item--opened");
+  });
+
 });
