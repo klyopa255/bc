@@ -55,9 +55,23 @@ const BCApp = {
       this.actClassToggle(this.elems.navButton, this.selectors.navButtonActClass);
       this.actClassToggle(this.elems.header, this.selectors.headerActClass);
       this.actClassToggle(this.elems.lang, this.selectors.langActClass);
-      this.actClassToggle(this.elems.nav, this.selectors.navActClass);
-      this.actClassToggle(this.elems.nav, this.selectors.navMobClass);
+      if (e.target.classList.contains(this.selectors.navButtonActClass)) {
+        this.elems.nav.classList.add(this.selectors.navActClass);
+        this.elems.nav.classList.add(this.selectors.navMobClass);
+      } else {
+        this.elems.nav.classList.remove(this.selectors.navActClass);
+        this.elems.nav.classList.remove(this.selectors.navMobClass);
+        this.navDisplay(this.elems.navItemAct);
+      }
     });
+  },
+
+  navDisplay: function (locationPoint) {
+    if (locationPoint.dataset.num === '0') {
+      this.elems.nav.classList.add(this.selectors.navActClass);
+    } else if (locationPoint.dataset.num !== '0' &&  !this.elems.nav.classList.contains(this.selectors.navMobClass)) {
+      this.elems.nav.classList.remove(this.selectors.navActClass);
+    }
   },
 
   lang: function () {
@@ -84,6 +98,13 @@ const BCApp = {
         this.elems.actSect.classList.remove(this.selectors.sectActClass);
         this.elems.sectList[i].classList.add(this.selectors.sectActClass);
         this.elems.actSect = this.elems.sectList[i];
+        if (this.elems.nav.classList.contains(this.selectors.navMobClass)) {
+          this.elems.header.classList.remove(this.selectors.headerActClass);
+          this.elems.nav.classList.remove(this.selectors.navActClass);
+          this.elems.nav.classList.remove(this.selectors.navMobClass);
+          this.elems.lang.classList.remove(this.selectors.langActClass);
+          this.elems.navButton.classList.remove(this.selectors.navButtonActClass);
+        }
         this.updateLocation(this.elems.actSect);
 
       });
@@ -157,6 +178,9 @@ const BCApp = {
   updateLocation: function (locationPoint) {
 
     location.hash = locationPoint.dataset.name;
+    if (document.documentElement.clientWidth>1023) {
+      this.navDisplay(locationPoint);
+    }
 
   },
 
@@ -170,6 +194,7 @@ const BCApp = {
 
     if(document.documentElement.clientWidth>1023) {
       this.mouseWheel();
+      this.navDisplay(this.elems.navItemAct);
     }
 
   }

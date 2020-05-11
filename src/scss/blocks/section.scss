@@ -204,10 +204,62 @@
 
     &__container {
       flex-grow: 1;
-      padding: 10vw 9vw 0 5vw;
+      padding: 10vw 8.6vw 0;
+
+      &::after {
+        font-size: 18.23vw;
+      }
 
       &--nopadding {
         padding-top: 0;
+      }
+
+      &--left {
+        padding: 10vw 3.7vw 0 8.6vw;
+      }
+
+      &--right {
+        padding: 10vw 8.6vw 0 5.2vw;
+      }
+
+      &--about {
+
+        &::after {
+          top: -2%;
+          left: 17.5%;
+        }
+      }
+
+      &--product {
+
+        &::after {
+          top: 1%;
+          left: -3%;
+        }
+      }
+
+      &--advantages {
+
+        &::after {
+          top: -1%;
+          left: 11%;
+        }
+      }
+
+      &--map {
+
+        &::after {
+          top: -7%;
+          left: -4%;
+        }
+      }
+
+      &--contacts {
+
+        &::after {
+          top: -2%;
+          left: -27%;
+        }
       }
     }
 
@@ -247,6 +299,10 @@
     &--top {
       background-image: url(/img/bg1-d.jpg);
       padding-top: 18.25vw;
+    }
+
+    &--reverse {
+      flex-direction: row-reverse;
     }
   }
 }
