@@ -254,6 +254,11 @@
         }
       }
 
+      &--faq {
+        overflow-y: auto;
+        padding: 0 25vw;
+      }
+
       &--contacts {
 
         &::after {

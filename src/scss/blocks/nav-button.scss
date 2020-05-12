@@ -1,0 +1,60 @@
+.nav-button {
+  position: relative;
+  display: none;
+  font-family: $mp-regular;
+  font-size: 0.75vw;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+  transition: padding-bottom 0.5s, padding-top 0.5s;
+
+  &::after {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 30px;
+    left: 50%;
+    bottom: 0;
+    background-color: #fff;
+    transition: bottom 0.5s;
+  }
+
+  &:hover {
+    padding-bottom: 0;
+    padding-top: 40px;
+
+    &::after {
+      bottom: 30px;
+    }
+  }
+
+  &--top {
+    padding-bottom: 0;
+    padding-top: 40px;
+
+    &::after {
+      bottom: 30px;
+    }
+
+    &:hover {
+      padding-bottom: 40px;
+      padding-top: 0;
+
+      &::after {
+        bottom: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-desktop) {
+
+  .nav-button {
+
+    &--active {
+      display: block;
+    }
+  }
+}

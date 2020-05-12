@@ -11,7 +11,10 @@ const BCApp = {
   elems: {
 
     header: document.querySelector('.page-header'),
-    navButton: document.querySelector('.main-nav__button'),
+    navBurger: document.querySelector('.main-nav__button'),
+    navButton: document.querySelector('.nav-button'),
+    navButtonTop: document.querySelector('.nav-button--top'),
+    navButtonNext: document.querySelector('.nav-button--next'),
     lang: document.querySelector('.lang'),
     langCurrent: document.querySelector('.lang__current'),
     langListWrapper: document.querySelector('.lang__list'),
@@ -30,7 +33,10 @@ const BCApp = {
   selectors: {
 
     headerActClass: 'page-header--active',
-    navButtonActClass: 'main-nav__button--active',
+    navBurgerActClass: 'main-nav__button--active',
+    navButtonActClass: 'nav-button--active',
+    navButtonTopClass: 'nav-button--top',
+    navButtonNextClass: 'nav-button--next',
     langActClass: 'lang--active',
     langListWrapperActClass: 'lang__list--active',
     langItemClass: 'lang__item',
@@ -51,11 +57,12 @@ const BCApp = {
   },
 
   burgerNav: function () {
-    this.elems.navButton.addEventListener('click', (e) => {
-      this.actClassToggle(this.elems.navButton, this.selectors.navButtonActClass);
+
+    this.elems.navBurger.addEventListener('click', (e) => {
+      this.actClassToggle(this.elems.navBurger, this.selectors.navBurgerActClass);
       this.actClassToggle(this.elems.header, this.selectors.headerActClass);
       this.actClassToggle(this.elems.lang, this.selectors.langActClass);
-      if (e.target.classList.contains(this.selectors.navButtonActClass)) {
+      if (e.target.classList.contains(this.selectors.navBurgerActClass)) {
         this.elems.nav.classList.add(this.selectors.navActClass);
         this.elems.nav.classList.add(this.selectors.navMobClass);
       } else {
@@ -64,17 +71,44 @@ const BCApp = {
         this.navDisplay(this.elems.navItemAct);
       }
     });
+
   },
 
   navDisplay: function (locationPoint) {
+
     if (locationPoint.dataset.num === '0') {
       this.elems.nav.classList.add(this.selectors.navActClass);
     } else if (locationPoint.dataset.num !== '0' &&  !this.elems.nav.classList.contains(this.selectors.navMobClass)) {
       this.elems.nav.classList.remove(this.selectors.navActClass);
     }
+
+  },
+
+  navButtonToggle: function (locationPoint) {
+
+    if(+locationPoint.dataset.num === this.elems.navList.length-1) {
+      this.elems.navButtonNext.classList.remove(this.selectors.navButtonActClass);
+      this.elems.navButtonTop.classList.add(this.selectors.navButtonActClass);
+    } else {
+      this.elems.navButtonNext.classList.add(this.selectors.navButtonActClass);
+      this.elems.navButtonTop.classList.remove(this.selectors.navButtonActClass);
+    }
+  },
+
+  navButtonClick: function () {
+    this.elems.navButtonNext.addEventListener('click', (e)=> {
+      e.preventDefault;
+      this.countToggle(1);
+    });
+    this.elems.navButtonTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.countToggle(-this.elems.navList.length+1);
+      console.log(-this.elems.navList.length-1);
+    });
   },
 
   lang: function () {
+
     this.elems.lang.addEventListener('click', (e) => {
       this.actClassToggle(this.elems.langListWrapper, this.selectors.langListWrapperActClass);
       if(e.target.classList.contains(this.selectors.langItemClass)) {
@@ -84,6 +118,7 @@ const BCApp = {
         this.elems.langAct = e.target;
       }
     });
+
   },
 
   menuToggle: function () {
@@ -91,6 +126,7 @@ const BCApp = {
     this.elems.navList.forEach((el, i) => {
 
       el.addEventListener('click', (e) => {
+
         e.preventDefault();
         this.elems.navItemAct.classList.remove(this.selectors.navItemActClass);
         el.classList.add(this.selectors.navItemActClass);
@@ -98,13 +134,19 @@ const BCApp = {
         this.elems.actSect.classList.remove(this.selectors.sectActClass);
         this.elems.sectList[i].classList.add(this.selectors.sectActClass);
         this.elems.actSect = this.elems.sectList[i];
+
         if (this.elems.nav.classList.contains(this.selectors.navMobClass)) {
           this.elems.header.classList.remove(this.selectors.headerActClass);
           this.elems.nav.classList.remove(this.selectors.navActClass);
           this.elems.nav.classList.remove(this.selectors.navMobClass);
           this.elems.lang.classList.remove(this.selectors.langActClass);
-          this.elems.navButton.classList.remove(this.selectors.navButtonActClass);
+          this.elems.navBurger.classList.remove(this.selectors.navBurgerActClass);
         }
+
+        if (document.documentElement.clientWidth>1023) {
+          this.navButtonToggle(el);
+        }
+
         this.updateLocation(this.elems.actSect);
 
       });
@@ -113,7 +155,7 @@ const BCApp = {
 
   countToggle: function (indication) {
 
-    if (((1*this.elems.navItemAct.dataset.num<this.elems.navList.length-1)&&(indication>0))||((1*this.elems.navItemAct.dataset.num>0)&&(indication<0))) {
+    if (((+this.elems.navItemAct.dataset.num<this.elems.navList.length-1)&&(indication>0))||((+this.elems.navItemAct.dataset.num>0)&&(indication<0))) {
       this.elems.navItemAct.classList.remove(this.selectors.navItemActClass);
       this.elems.navList[1*this.elems.navItemAct.dataset.num+indication].classList.add(this.selectors.navItemActClass);
       this.elems.navItemAct = this.elems.navList[1*this.elems.navItemAct.dataset.num+indication];
@@ -123,6 +165,9 @@ const BCApp = {
       this.elems.actSect = this.elems.sectList[1*this.elems.actSect.dataset.num+indication];
 
       this.updateLocation(this.elems.actSect);
+
+      this.navButtonToggle(this.elems.navItemAct);
+
     }
   },
 
@@ -130,9 +175,34 @@ const BCApp = {
 
     this.elems.sectWrapper.addEventListener('wheel', (e) => {
 
-      e.preventDefault();
-      if (e.deltaY>0) this.countToggle(1);
-      else if (e.deltaY<0) this.countToggle(-1);
+      if( this.elems.navItemAct.dataset.name !== 'faq' ) {
+
+        e.preventDefault();
+        if (e.deltaY>0) this.countToggle(1);
+        else if (e.deltaY<0 ) this.countToggle(-1);
+
+      } else {
+
+        $.fn.isOnScreen = function() {
+          var win = $(window);
+          var viewport = {
+            top: win.scrollTop(),
+            left: win.scrollLeft()
+          };
+          viewport.right = viewport.left + win.width();
+          viewport.bottom = viewport.top + win.height();
+          var bounds = this.offset();
+          bounds.right = bounds.left + this.outerWidth();
+          bounds.bottom = bounds.top + this.outerHeight();
+          return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+        };
+
+
+          if (e.deltaY>0 && $('.faq-bottom').isOnScreen()) this.countToggle(1);
+          else if (e.deltaY<0 && $('.faq-top').isOnScreen()) this.countToggle(-1);
+
+
+      }
 
     });
   },
@@ -195,6 +265,8 @@ const BCApp = {
     if(document.documentElement.clientWidth>1023) {
       this.mouseWheel();
       this.navDisplay(this.elems.navItemAct);
+      this.navButtonToggle(this.elems.navItemAct);
+      this.navButtonClick();
     }
 
   }
@@ -204,8 +276,6 @@ const BCApp = {
 ready(function(){
   console.log('DOM ready');
 
-  console.log(document.documentElement.clientWidth);
-
   BCApp.run();
 
   if ($('.owl-carousel.owl-carousel').length) {
@@ -213,6 +283,7 @@ ready(function(){
       items: 1,
       nav: true,
       dots: true,
+      loop: true,
       //margin: 15,
     //   responsiveClass: true,
     //   responsive:{

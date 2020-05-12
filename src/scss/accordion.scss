@@ -1,6 +1,7 @@
 .accordion {
   @include list;
   overflow: hidden;
+  margin-bottom: 40px;
 }
 
 .accordion-list__item {
@@ -103,4 +104,12 @@
   margin: 0;
   font-size: 12px;
   font-weight: normal;
+}
+
+@media (min-width: $screen-desktop) {
+
+  .accordion h3.accordion-item__title {
+    font-size: 1.77vw;
+    line-height: 1.5em;
+  }
 }

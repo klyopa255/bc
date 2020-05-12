@@ -1,3 +1,13 @@
 .flex-container {
   @include flex-container;
+
+  &--center {
+    justify-content: center;
+  }
+
+  &--fixed-bottom {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }
 }

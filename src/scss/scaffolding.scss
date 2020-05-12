@@ -7,3 +7,16 @@ body {
   font-family: $mp-regular;
   margin: 0;
 }
+
+@media (min-width: $screen-desktop) {
+
+  .faq-top {
+    margin-bottom:10vw;
+    height:1px;
+  }
+
+  .faq-bottom {
+    margin-top:200px;
+    height:1px;
+  }
+}

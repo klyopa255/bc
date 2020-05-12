@@ -44,6 +44,7 @@ block header
 block content
   .page__container
     main.page__main
+
       ul.sections__list
 
         li.sections__item(id="wellcome" data-name="wellcome", data-num="0")
@@ -51,7 +52,8 @@ block content
             .section__container.section__container--nopadding
               h1.section__title Insight Business Club
               p.section__promo Международное сообщество для бизнеса и инвестиций
-              a(href="#").button.section__button Узнать больше
+              .flex-container.flex-container--center
+                a(href="#").button.section__button Узнать больше
 
         li.sections__item(id="about" data-name="about", data-num="1")
           section.section
@@ -70,7 +72,8 @@ block content
               h2.section__title Продукт
               h3 Направление инвестиций
               p.section__text На сегодняшний день мы выбрали первым направлением инвестиции в стабильно работающее предприятие горнодобывающей промышленности в Африке.
-              a(href="#").button.section__button Узнать подроюнее
+              .flex-container
+                a(href="#").button.section__button Узнать подроюнее
 
         li.sections__item(id="advantages" data-name="advantages", data-num="3")
           section.section
@@ -119,6 +122,7 @@ block content
         li.sections__item(id="faq" data-name="faq", data-num="5")
           section.section
             .section__container.section__container--faq
+              .faq-top
               h2.section__title FAQ
               ul.accordion
                 li.accordion-list__item
@@ -170,6 +174,9 @@ block content
                     div.accordion-item__inner
                       div.accordion-item__content
                         p.accordion-item__paragraph Партнерство не является банком и не оказывает услуг по размещению депозитов или инвестированию в ценные бумаги. Партнерство не начисляет процентов, оно дает возможность совместно финансировать торговые сделки предприятий и получать от них доход. Партнерство выплачивает только доход, соответствующий доле инвестора в партнерстве.
+              .flex-container.flex-container--center
+                a(href="#").button.button--large.section__button Скачать все вопросы и ответы
+              .faq-bottom
 
         li.sections__item(id="contacts" data-name="contacts", data-num="6")
           section.section.section--reverse
@@ -193,6 +200,9 @@ block content
 
               a(href="#").button.section__button Перезвоните мне
 
+      .flex-container.flex-container--center.flex-container--fixed-bottom
+        a(href="#").nav-button.nav-button--next Смотрите дальше
+        a(href="#").nav-button.nav-button--top Наверх
 
 //- block footer
 //-   p footer
