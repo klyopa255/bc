@@ -104,19 +104,46 @@
       margin-right: 1.56vw;
 
       a {
+        position: relative;
         font-family: $mp-regular;
         font-size: 0.85vw;
         text-transform: uppercase;
         color: $d-nav-color;
         text-decoration: none;
+        padding-bottom: 0.53vw;
+
+        &::after {
+          position: absolute;
+          content: '';
+          width: 0;
+          height: 0.1vw;
+          left: 0;
+          bottom: 0;
+          background-color: $d-nav-color;
+          transition: width 0.5s;
+        }
+
+        &:hover {
+
+          &::after {
+            width: 100%;
+          }
+        }
       }
 
       &--current {
 
         a {
           color: #fff;
+
+          &::after {
+            width: 100%;
+            background-color: #fff;
+          }
         }
       }
+
+
     }
 
     &__button {
@@ -161,6 +188,25 @@
         &__list {
           flex-direction: column;
           padding-left: 30vw;
+        }
+
+        &__item {
+
+          a {
+
+            &::after {
+              background-color: $nav-color;
+            }
+          }
+
+          &--current {
+
+            & a {
+              &::after {
+                content: none;
+              }
+            }
+          }
         }
       }
     }

@@ -8,6 +8,8 @@ function ready(fn) {
 
 const BCApp = {
 
+  screenWidth: document.documentElement.clientWidth,
+
   elems: {
 
     header: document.querySelector('.page-header'),
@@ -76,7 +78,7 @@ const BCApp = {
 
   navDisplay: function (locationPoint) {
 
-    if (locationPoint.dataset.num === '0') {
+    if (locationPoint.dataset.num === '0' && this.screenWidth>1023) {
       this.elems.nav.classList.add(this.selectors.navActClass);
     } else if (locationPoint.dataset.num !== '0' &&  !this.elems.nav.classList.contains(this.selectors.navMobClass)) {
       this.elems.nav.classList.remove(this.selectors.navActClass);
@@ -143,7 +145,7 @@ const BCApp = {
           this.elems.navBurger.classList.remove(this.selectors.navBurgerActClass);
         }
 
-        if (document.documentElement.clientWidth>1023) {
+        if (this.screenWidth>1023) {
           this.navButtonToggle(el);
         }
 
@@ -183,24 +185,8 @@ const BCApp = {
 
       } else {
 
-        $.fn.isOnScreen = function() {
-          var win = $(window);
-          var viewport = {
-            top: win.scrollTop(),
-            left: win.scrollLeft()
-          };
-          viewport.right = viewport.left + win.width();
-          viewport.bottom = viewport.top + win.height();
-          var bounds = this.offset();
-          bounds.right = bounds.left + this.outerWidth();
-          bounds.bottom = bounds.top + this.outerHeight();
-          return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
-        };
-
-
-          if (e.deltaY>0 && $('.faq-bottom').isOnScreen()) this.countToggle(1);
-          else if (e.deltaY<0 && $('.faq-top').isOnScreen()) this.countToggle(-1);
-
+        if (e.deltaY>0 && $('.faq-bottom').isOnScreen()) this.countToggle(1);
+        else if (e.deltaY<0 && $('.faq-top').isOnScreen()) this.countToggle(-1);
 
       }
 
@@ -248,7 +234,7 @@ const BCApp = {
   updateLocation: function (locationPoint) {
 
     location.hash = locationPoint.dataset.name;
-    if (document.documentElement.clientWidth>1023) {
+    if (this.screenWidth>1023) {
       this.navDisplay(locationPoint);
     }
 
@@ -262,7 +248,7 @@ const BCApp = {
     this.location();
     this.menuToggle();
 
-    if(document.documentElement.clientWidth>1023) {
+    if(this.screenWidth>1023) {
       this.mouseWheel();
       this.navDisplay(this.elems.navItemAct);
       this.navButtonToggle(this.elems.navItemAct);
@@ -275,6 +261,20 @@ const BCApp = {
 
 ready(function(){
   console.log('DOM ready');
+
+  $.fn.isOnScreen = function() {
+    var win = $(window);
+    var viewport = {
+      top: win.scrollTop(),
+      left: win.scrollLeft()
+    };
+    viewport.right = viewport.left + win.width();
+    viewport.bottom = viewport.top + win.height();
+    var bounds = this.offset();
+    bounds.right = bounds.left + this.outerWidth();
+    bounds.bottom = bounds.top + this.outerHeight();
+    return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+  };
 
   BCApp.run();
 
