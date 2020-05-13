@@ -1,6 +1,5 @@
 .section {
   background: #000 center no-repeat;
-  background-image: url(/img/bg1.jpg);
   background-size: cover;
 
   &__container {
@@ -184,6 +183,7 @@
   .section {
     display: flex;
     height: 100%;
+    background-image: url(/img/bg1-d.jpg);
     overflow: hidden;
 
     &__img {
