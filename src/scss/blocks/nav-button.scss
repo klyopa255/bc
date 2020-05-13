@@ -8,7 +8,8 @@
   color: #fff;
   padding-bottom: 40px;
   margin-bottom: 20px;
-  transition: padding-bottom 0.5s, padding-top 0.5s;
+  opacity: 0.8;
+  transition: padding-bottom 0.5s, padding-top 0.5s, opacity 0.5s;
 
   &::after {
     position: absolute;
@@ -24,6 +25,7 @@
   &:hover {
     padding-bottom: 0;
     padding-top: 40px;
+    opacity: 1;
 
     &::after {
       bottom: 30px;
