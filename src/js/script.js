@@ -136,6 +136,8 @@ const BCApp = {
         this.elems.navItemAct.classList.remove(this.selectors.navItemActClass);
         el.classList.add(this.selectors.navItemActClass);
         this.elems.navItemAct = el;
+
+        this.elems.actSectPrev = this.elems.actSect;
         this.elems.actSect.classList.remove(this.selectors.sectActClass);
         setTimeout(()=>this.elems.actSectPrev.classList.add(this.selectors.sectNoDisplayClass),1000);
         this.elems.sectList[i].classList.add(this.selectors.sectActClass);

@@ -316,7 +316,8 @@
     }
 
     &--top {
-      background-image: url(/img/bg1-d.jpg);
+      background: url(/img/bg1-d.jpg) center no-repeat;
+      background-size: cover;
       padding-top: 18.25vw;
     }
 

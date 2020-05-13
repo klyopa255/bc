@@ -1,10 +1,6 @@
 .main-nav {
+  display: none;
   position: relative;
-  opacity: 0;
-  z-index: -1;
-  height: 0;
-  transition: opacity 0.5s, z-index 0.5s 1s;
-
 
   &__list {
     @include list;
@@ -61,7 +57,6 @@
   &--active {
     opacity: 1;
     z-index: 0;
-    height: auto;
   }
 
   &--mobile {
@@ -99,8 +94,11 @@
 @media (min-width: $screen-desktop) {
 
   .main-nav {
+    display: block;
+    opacity: 0;
+    z-index: -1;
     padding-right: 5vw;
-    z-index: 3;
+    transition: opacity 0.5s, z-index 0.5s 1s;
 
     &__list {
       display: flex;
@@ -216,6 +214,12 @@
           }
         }
       }
+    }
+
+    &--active {
+      opacity: 1;
+      z-index: 3;
+      transition: opacity 1s, z-index 1s;
     }
   }
 }
