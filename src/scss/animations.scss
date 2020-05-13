@@ -1,0 +1,19 @@
+@keyframes from-left {
+  from {
+    margin-left: -200%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}
+
+@keyframes from-right {
+  from {
+    margin-left: 200%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}

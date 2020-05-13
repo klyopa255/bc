@@ -10,6 +10,8 @@ const BCApp = {
 
   screenWidth: document.documentElement.clientWidth,
 
+  isAnimationInProgress: false,
+
   elems: {
 
     header: document.querySelector('.page-header'),
@@ -157,7 +159,8 @@ const BCApp = {
 
   countToggle: function (indication) {
 
-    if (((+this.elems.navItemAct.dataset.num<this.elems.navList.length-1)&&(indication>0))||((+this.elems.navItemAct.dataset.num>0)&&(indication<0))) {
+    if ((((+this.elems.navItemAct.dataset.num<this.elems.navList.length-1)&&(indication>0))||((+this.elems.navItemAct.dataset.num>0)&&(indication<0))) && !this.isAnimationInProgress ) {
+
       this.elems.navItemAct.classList.remove(this.selectors.navItemActClass);
       this.elems.navList[1*this.elems.navItemAct.dataset.num+indication].classList.add(this.selectors.navItemActClass);
       this.elems.navItemAct = this.elems.navList[1*this.elems.navItemAct.dataset.num+indication];
@@ -169,6 +172,8 @@ const BCApp = {
       this.updateLocation(this.elems.actSect);
 
       this.navButtonToggle(this.elems.navItemAct);
+
+      this.animationTimeout(this.isAnimationInProgress);
 
     }
   },
@@ -240,6 +245,14 @@ const BCApp = {
 
   },
 
+  animationTimeout: function (animationState) {
+
+    if(!animationState) {
+      this.isAnimationInProgress = !this.isAnimationInProgress;
+      setTimeout(()=>this.isAnimationInProgress = !this.isAnimationInProgress, 1000);
+    }
+
+  },
 
   run: function () {
 
@@ -259,7 +272,8 @@ const BCApp = {
 
 };
 
-ready(function(){
+ready( function() {
+
   console.log('DOM ready');
 
   $.fn.isOnScreen = function() {
