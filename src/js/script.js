@@ -27,6 +27,7 @@ const BCApp = {
     sectWrapper: document.querySelector('.sections__list'),
     sectList: document.querySelectorAll('.sections__item'),
     actSect: '',
+    actSectPrev: '',
     sectContainer: document.querySelectorAll('.section__container'),
     nav: document.querySelector('.main-nav'),
     navList: document.querySelectorAll('.main-nav__item'),
@@ -48,7 +49,8 @@ const BCApp = {
     navActClass: 'main-nav--active',
     navMobClass: 'main-nav--mobile',
     navItemActClass: 'main-nav__item--current',
-    sectActClass: 'sections__item--active'
+    sectActClass: 'sections__item--active',
+    sectNoDisplayClass: 'sections__item--nodisplay'
 
   },
 
@@ -107,7 +109,6 @@ const BCApp = {
     this.elems.navButtonTop.addEventListener('click', (e) => {
       e.preventDefault();
       this.countToggle(-this.elems.navList.length+1);
-      console.log(-this.elems.navList.length-1);
     });
   },
 
@@ -136,7 +137,9 @@ const BCApp = {
         el.classList.add(this.selectors.navItemActClass);
         this.elems.navItemAct = el;
         this.elems.actSect.classList.remove(this.selectors.sectActClass);
+        setTimeout(()=>this.elems.actSectPrev.classList.add(this.selectors.sectNoDisplayClass),1000);
         this.elems.sectList[i].classList.add(this.selectors.sectActClass);
+        this.elems.sectList[i].classList.remove(this.selectors.sectNoDisplayClass);
         this.elems.actSect = this.elems.sectList[i];
 
         if (this.elems.nav.classList.contains(this.selectors.navMobClass)) {
@@ -165,8 +168,11 @@ const BCApp = {
       this.elems.navList[1*this.elems.navItemAct.dataset.num+indication].classList.add(this.selectors.navItemActClass);
       this.elems.navItemAct = this.elems.navList[1*this.elems.navItemAct.dataset.num+indication];
 
+      this.elems.actSectPrev = this.elems.actSect;
       this.elems.actSect.classList.remove(this.selectors.sectActClass);
+      setTimeout(()=>this.elems.actSectPrev.classList.add(this.selectors.sectNoDisplayClass),1000);
       this.elems.sectList[1*this.elems.actSect.dataset.num+indication].classList.add(this.selectors.sectActClass);
+      this.elems.sectList[1*this.elems.actSect.dataset.num+indication].classList.remove(this.selectors.sectNoDisplayClass);
       this.elems.actSect = this.elems.sectList[1*this.elems.actSect.dataset.num+indication];
 
       this.updateLocation(this.elems.actSect);
@@ -224,13 +230,22 @@ const BCApp = {
           if(el.dataset.name === hash) {
             el.classList.add(this.selectors.sectActClass);
             this.elems.actSect = el;
+          } else {
+            el.classList.add(this.selectors.sectNoDisplayClass);
           }
         });
       }
     } else {
       this.elems.navList[0].classList.add(this.selectors.navItemActClass);
       this.elems.navItemAct = this.elems.navList[0];
-      this.elems.sectList[0].classList.add(this.selectors.sectActClass);
+      this.elems.sectList.forEach((el, i, arr) => {
+        if(+el.dataset.num === 0) {
+          el.classList.add(this.selectors.sectActClass);
+          this.elems.actSect = el;
+        } else {
+          el.classList.add(this.selectors.sectNoDisplayClass);
+        }
+      });
       this.elems.actSect = this.elems.sectList[0];
     }
 

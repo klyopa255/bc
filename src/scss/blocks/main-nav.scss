@@ -2,6 +2,7 @@
   position: relative;
   opacity: 0;
   z-index: -1;
+  height: 0;
   transition: opacity 0.5s, z-index 0.5s 1s;
 
 
@@ -60,6 +61,7 @@
   &--active {
     opacity: 1;
     z-index: 0;
+    height: auto;
   }
 
   &--mobile {
@@ -98,7 +100,7 @@
 
   .main-nav {
     padding-right: 5vw;
-    z-index: 2;
+    z-index: 3;
 
     &__list {
       display: flex;

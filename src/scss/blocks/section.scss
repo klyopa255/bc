@@ -173,6 +173,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    background-image: url(/img/bg1.jpg);
     padding-top: 120px;
     height: 100vh;
   }
@@ -183,7 +184,7 @@
   .section {
     display: flex;
     height: 100%;
-    background-image: url(/img/bg1-d.jpg);
+    background: transparent;
     overflow: hidden;
 
     &__img {
