@@ -1,5 +1,6 @@
 .section {
   background: #000 center no-repeat;
+  background-image: url(/img/bg1.jpg);
   background-size: cover;
 
   &__container {
@@ -174,7 +175,6 @@
     flex-direction: column;
     justify-content: space-around;
     padding-top: 120px;
-    background-image: url(/img/bg1.jpg);
     height: 100vh;
   }
 }
