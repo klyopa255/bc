@@ -17,3 +17,23 @@
     margin-left: 0%;
   }
 }
+
+@keyframes from-top {
+  from {
+    top: -100%;
+  }
+
+  to {
+    top: 0;
+  }
+}
+
+@keyframes from-bottom {
+  from {
+    top: 100%;
+  }
+
+  to {
+    top: 0%;
+  }
+}

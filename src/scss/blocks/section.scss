@@ -184,10 +184,13 @@
   .section {
     display: flex;
     height: 100%;
+    overflow: hidden;
 
     &__img {
+      position: relative;
       width: 50%;
       min-width: 50%;
+      animation: from-bottom 1s 1;
 
       &--about {
         background-image: url(/img/hands-d.jpg);
@@ -224,10 +227,12 @@
 
       &--left {
         padding: 10vw 3.7vw 0 8.6vw;
+        animation: from-top 1s 1;
       }
 
       &--right {
         padding: 10vw 8.6vw 0 5.2vw;
+        animation: from-top 1s 1;
       }
 
       &--about {
