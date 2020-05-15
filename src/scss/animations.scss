@@ -48,6 +48,16 @@
   }
 }
 
+@keyframes nav-button {
+  from {
+    top: 71px;
+  }
+
+  to {
+    top: 0;
+  }
+}
+
 .title-animation {
   position: relative;
   width: 100%;

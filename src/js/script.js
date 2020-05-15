@@ -29,6 +29,7 @@ const BCApp = {
     actSect: '',
     actSectPrev: '',
     sectContainer: document.querySelectorAll('.section__container'),
+    sectContainerFaq: document.querySelector('.section__container--faq'),
     nav: document.querySelector('.main-nav'),
     navList: document.querySelectorAll('.main-nav__item'),
     navItemAct: ''
@@ -42,6 +43,7 @@ const BCApp = {
     navButtonActClass: 'nav-button--active',
     navButtonTopClass: 'nav-button--top',
     navButtonNextClass: 'nav-button--next',
+    navButtonScrollClass: 'nav-button--scroll',
     langActClass: 'lang--active',
     langListWrapperActClass: 'lang__list--active',
     langItemClass: 'lang__item',
@@ -94,9 +96,15 @@ const BCApp = {
 
     if(+locationPoint.dataset.num === this.elems.navList.length-1) {
       this.elems.navButtonNext.classList.remove(this.selectors.navButtonActClass);
+      this.elems.navButtonNext.classList.remove(this.selectors.navButtonScrollClass);
       this.elems.navButtonTop.classList.add(this.selectors.navButtonActClass);
+    } else if(locationPoint.dataset.name === 'faq') {
+      this.elems.navButtonNext.classList.add(this.selectors.navButtonScrollClass);
+      this.elems.navButtonNext.classList.add(this.selectors.navButtonActClass);
+      this.elems.navButtonTop.classList.remove(this.selectors.navButtonActClass);
     } else {
       this.elems.navButtonNext.classList.add(this.selectors.navButtonActClass);
+      this.elems.navButtonNext.classList.remove(this.selectors.navButtonScrollClass);
       this.elems.navButtonTop.classList.remove(this.selectors.navButtonActClass);
     }
   },
@@ -186,6 +194,16 @@ const BCApp = {
     }
   },
 
+  scroll: function () {
+    this.elems.sectContainerFaq.addEventListener('scroll', (e)=> {
+      if(this.elems.actSect.dataset.name === 'faq' && $('.faq-bottom').isOnScreen()) {
+        this.elems.navButton.classList.remove(this.selectors.navButtonScrollClass);
+      } else {
+        this.elems.navButton.classList.add(this.selectors.navButtonScrollClass);
+      }
+    });
+  },
+
   mouseWheel: function () {
 
     this.elems.sectWrapper.addEventListener('wheel', (e) => {
@@ -271,33 +289,6 @@ const BCApp = {
 
   },
 
-  textAnimation: function () {
-    $(window).on('load', function (e){
-      $('.section__title').each(function(i,e){
-          $(e).addClass('title-animation');
-      });
-      $('.section__content').each(function(i,e){
-          $(e).addClass('content-animation');
-      });
-    });
-    $(document).on('scroll', function (e){
-      $('.section__title').each(function(i,e){
-        if($(e).isOnScreen()&&!$(e).hasClass('title-animation')) {
-          $(e).addClass('title-animation');
-        } else if (!$(e).isOnScreen()&&$(e).hasClass('title-animation')) {
-          $(e).removeClass('title-animation');
-        }
-      });
-      $('.section__content').each(function(i,e){
-        if($(e).isOnScreen()&&!$(e).hasClass('content-animation')) {
-          $(e).addClass('content-animation');
-        } else if (!$(e).isOnScreen()&&$(e).hasClass('content-animation')) {
-          $(e).removeClass('content-animation');
-        }
-      });
-    });
-  },
-
   run: function () {
 
     this.burgerNav();
@@ -310,6 +301,7 @@ const BCApp = {
       this.navDisplay(this.elems.navItemAct);
       this.navButtonToggle(this.elems.navItemAct);
       this.navButtonClick();
+      this.scroll();
     } else {
       this.textAnimation();
     }

@@ -9,7 +9,8 @@
   padding-bottom: 40px;
   margin-bottom: 20px;
   opacity: 0.8;
-  transition: padding-bottom 0.5s, padding-top 0.5s, opacity 0.5s;
+  top: 0;
+  transition: padding-bottom 0.5s, padding-top 0.5s, opacity 0.5s, top 1s;
 
   &::after {
     position: absolute;
@@ -48,6 +49,11 @@
         bottom: 0;
       }
     }
+  }
+
+  &--scroll {
+    position: relative;
+    top: 4vw;
   }
 }
 

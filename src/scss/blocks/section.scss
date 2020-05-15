@@ -80,11 +80,13 @@
   }
 
   & h1 {
+    position: relative;
     font-family: $pf-extra-bold;
     font-size: 45px;
     line-height: 55px;
     text-transform: uppercase;
     margin: 0 0 25px;
+    animation: from-left 1s 1;
   }
 
   & h2 {
@@ -113,12 +115,14 @@
   }
 
   &__promo {
+    position: relative;
     font-family: $pf-medium;
     font-size: 23px;
     line-height: 32px;
     width: 100%;
     padding-right: 10px;
     margin-bottom: 75px;
+    animation: from-right 1s 1;
   }
 
   &__text {
