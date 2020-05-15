@@ -6,9 +6,14 @@ body {
   color: #fff;
   font-family: $mp-regular;
   margin: 0;
+  overflow: hidden;
 }
 
 @media (min-width: $screen-desktop) {
+
+  body{
+    overflow: auto;
+  }
 
   .faq-top {
     margin-bottom: 10vw;

@@ -95,18 +95,31 @@ const BCApp = {
   navButtonToggle: function (locationPoint) {
 
     if(+locationPoint.dataset.num === this.elems.navList.length-1) {
+
       this.elems.navButtonNext.classList.remove(this.selectors.navButtonActClass);
       this.elems.navButtonNext.classList.remove(this.selectors.navButtonScrollClass);
       this.elems.navButtonTop.classList.add(this.selectors.navButtonActClass);
+
     } else if(locationPoint.dataset.name === 'faq') {
+
       this.elems.navButtonNext.classList.add(this.selectors.navButtonScrollClass);
       this.elems.navButtonNext.classList.add(this.selectors.navButtonActClass);
       this.elems.navButtonTop.classList.remove(this.selectors.navButtonActClass);
+
+      this.elems.sectContainerFaq.addEventListener('click', (e) => {
+        setTimeout(()=>{
+          console.log(this);
+        },500);
+      });
+
     } else {
+
       this.elems.navButtonNext.classList.add(this.selectors.navButtonActClass);
       this.elems.navButtonNext.classList.remove(this.selectors.navButtonScrollClass);
       this.elems.navButtonTop.classList.remove(this.selectors.navButtonActClass);
+
     }
+
   },
 
   navButtonClick: function () {
@@ -302,8 +315,6 @@ const BCApp = {
       this.navButtonToggle(this.elems.navItemAct);
       this.navButtonClick();
       this.scroll();
-    } else {
-      this.textAnimation();
     }
 
   }
