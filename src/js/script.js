@@ -271,6 +271,33 @@ const BCApp = {
 
   },
 
+  textAnimation: function () {
+    $(window).on('load', function (e){
+      $('.section__title').each(function(i,e){
+          $(e).addClass('title-animation');
+      });
+      $('.section__content').each(function(i,e){
+          $(e).addClass('content-animation');
+      });
+    });
+    $(document).on('scroll', function (e){
+      $('.section__title').each(function(i,e){
+        if($(e).isOnScreen()&&!$(e).hasClass('title-animation')) {
+          $(e).addClass('title-animation');
+        } else if (!$(e).isOnScreen()&&$(e).hasClass('title-animation')) {
+          $(e).removeClass('title-animation');
+        }
+      });
+      $('.section__content').each(function(i,e){
+        if($(e).isOnScreen()&&!$(e).hasClass('content-animation')) {
+          $(e).addClass('content-animation');
+        } else if (!$(e).isOnScreen()&&$(e).hasClass('content-animation')) {
+          $(e).removeClass('content-animation');
+        }
+      });
+    });
+  },
+
   run: function () {
 
     this.burgerNav();
@@ -283,6 +310,8 @@ const BCApp = {
       this.navDisplay(this.elems.navItemAct);
       this.navButtonToggle(this.elems.navItemAct);
       this.navButtonClick();
+    } else {
+      this.textAnimation();
     }
 
   }
