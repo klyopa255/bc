@@ -79,6 +79,10 @@
     }
   }
 
+  &__title {
+    z-index: 1;
+  }
+
   & h1 {
     position: relative;
     font-family: $pf-extra-bold;
@@ -180,6 +184,31 @@
   }
 }
 
+@media (min-width: $screen-tablet) {
+
+  .section {
+
+    &__img {
+
+      &::after {
+        padding-top: 40%;
+      }
+
+      &--product {
+        background-position: top center;
+      }
+    }
+
+    & h1 {
+      text-align: center;
+    }
+
+    &__promo {
+      text-align: center;
+    }
+  }
+}
+
 @media (min-width: $screen-desktop) {
 
   .section {
@@ -199,6 +228,7 @@
 
       &--product {
         background-image: url(/img/kollash-d.jpg);
+        background-position: center center;
       }
 
       &--advantages {

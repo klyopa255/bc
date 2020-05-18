@@ -216,6 +216,28 @@ block content
         a(href="#").nav-button.nav-button--next Смотрите дальше
         a(href="#").nav-button.nav-button--top Наверх
 
+      #popup.popup
+        .popup__container
+          .popup__button
+          form.contact-form(action="#")
+            .contact-form__input-wrapper
+              label.contact-form__label(for="name") Имя
+              input#name.contact-form__input(type="text", name="name", autocomplete="off")
+            .contact-form__input-wrapper
+              label.contact-form__label(for="phone") Телефон
+              input#phone.contact-form__input(type="phone", name="phone", autocomplete="off")
+            .contact-form__input-wrapper
+              label.contact-form__label(for="email") E-mail
+              input#email.contact-form__input(type="text", name="email", autocomplete="off")
+            .contact-form__input-wrapper
+              label.contact-form__label(for="country") Страна
+              input.contact-form__input.contact-form__input--select(type="text", id="country", name="country", readonly)
+              ul.contact-form__options-list
+                li.contact-form__options-item(data-name="Россия") Россия
+                li.contact-form__options-item(data-name="Польша") Польша
+                li.contact-form__options-item(data-name="Германия") Германия
+
+
 //- block footer
 //-   p footer
 

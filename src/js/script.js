@@ -15,24 +15,33 @@ const BCApp = {
   elems: {
 
     header: document.querySelector('.page-header'),
+
     navBurger: document.querySelector('.main-nav__button'),
+
     navButton: document.querySelector('.nav-button'),
     navButtonTop: document.querySelector('.nav-button--top'),
     navButtonNext: document.querySelector('.nav-button--next'),
+
     lang: document.querySelector('.lang'),
     langCurrent: document.querySelector('.lang__current'),
     langListWrapper: document.querySelector('.lang__list'),
     langList: document.querySelectorAll('.lang__item'),
     langAct: document.querySelector('.lang__item--current'),
+
     sectWrapper: document.querySelector('.sections__list'),
     sectList: document.querySelectorAll('.sections__item'),
     actSect: '',
     actSectPrev: '',
     sectContainer: document.querySelectorAll('.section__container'),
     sectContainerFaq: document.querySelector('.section__container--faq'),
+
     nav: document.querySelector('.main-nav'),
     navList: document.querySelectorAll('.main-nav__item'),
-    navItemAct: ''
+    navItemAct: '',
+
+    inputWrappers: document.querySelectorAll(".contact-form__input-wrapper"),
+		inputs: document.querySelectorAll(".contact-form__input"),
+		labels: document.querySelectorAll(".contact-form__label")
 
   },
 
@@ -52,7 +61,9 @@ const BCApp = {
     navMobClass: 'main-nav--mobile',
     navItemActClass: 'main-nav__item--current',
     sectActClass: 'sections__item--active',
-    sectNoDisplayClass: 'sections__item--nodisplay'
+    sectNoDisplayClass: 'sections__item--nodisplay',
+    inputWrapperActClass: "contact-form__input-wrapper==active",
+		labelActClass: "contact-form__label--active"
 
   },
 
@@ -105,12 +116,6 @@ const BCApp = {
       this.elems.navButtonNext.classList.add(this.selectors.navButtonScrollClass);
       this.elems.navButtonNext.classList.add(this.selectors.navButtonActClass);
       this.elems.navButtonTop.classList.remove(this.selectors.navButtonActClass);
-
-      this.elems.sectContainerFaq.addEventListener('click', (e) => {
-        setTimeout(()=>{
-          console.log(this);
-        },500);
-      });
 
     } else {
 
@@ -205,6 +210,14 @@ const BCApp = {
       this.animationTimeout(this.isAnimationInProgress);
 
     }
+  },
+
+  click: function () {
+    this.elems.sectContainerFaq.addEventListener('click', (e) => {
+      setTimeout(()=>{
+        console.log(this);
+      },500);
+    });
   },
 
   scroll: function () {
@@ -302,12 +315,46 @@ const BCApp = {
 
   },
 
+  form: function () {
+
+		this.elems.inputs.forEach((el, i, arr) => {
+
+			el.addEventListener("focus", (e) => {
+
+				this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperActClass);
+				this.elems.labels[i].classList.add(this.selectors.labelActClass);
+
+				if (e.target.classList.contains(this.selectors.txtArea)) {
+					this.elems.inputWrappers[i].classList.add(this.selectors.txtAreaWrapper);
+				}
+
+			});
+
+			el.addEventListener("blur", (e) => {
+
+				this.elems.inputWrappers[i].classList.remove(this.selectors.inputActClass);
+
+				if (e.target.value === "") {
+					this.elems.labels[i].classList.remove(this.selectors.labelActClass);
+					if (e.target.classList.contains(this.selectors.txtArea)) {
+						this.elems.inputWrappers[i].classList.remove(this.selectors.txtAreaWrapper);
+					}
+				}
+
+			});
+
+		});
+
+  },
+
   run: function () {
 
     this.burgerNav();
     this.lang();
     this.location();
     this.menuToggle();
+    this.click();
+    this.form();
 
     if(this.screenWidth>1023) {
       this.mouseWheel();
@@ -370,7 +417,9 @@ ready( function() {
   $(".accordion-item__line").click(function () {
     var container = $(this).parents(".accordion-list__item");
     var answer = container.find(".accordion-item");
-    answer.toggleClass("accordion-item--opened");
+    var ansvers = $(".accordion-item");
+    ansvers.removeClass("accordion-item--opened");
+    answer.addClass("accordion-item--opened");
   });
 
 });
