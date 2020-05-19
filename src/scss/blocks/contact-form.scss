@@ -1,4 +1,7 @@
 .contact-form {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
    
     &__input-wrapper {
         position: relative;
@@ -8,6 +11,60 @@
 
         &:first-child {
             border-top: 1px solid #3c3c3c;
+        }
+
+        &::after {
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            transition: width 0.5s;
+        }
+
+        &--last {
+            margin-bottom: 70px;
+        }
+
+        &--active {
+
+            &::after {
+                width: 100%;
+            }
+        }
+    }
+
+    &__select-mark {
+        position: absolute;
+        top: 50%;
+        margin-top: -5px;
+        right: 10px;
+        width: 18px;
+        height: 10px;
+        transition: transform 0.5s;
+
+
+        &::before,&::after {
+            position: absolute;
+            content: '';
+            top: 5px;
+            left: -2px;
+            width: 13px;
+            height: 1px;
+            background-color: #fff;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+            left: initial;
+            right: -2px;
+        }
+
+        &--active {
+            transform: rotate(180deg);
         }
     }
 
@@ -51,6 +108,140 @@
     }
 
     &__options-list {
-        display: none;
+        @include list;
+        position: absolute;
+        left: 0;
+        top: 65px;
+        width: 100%;
+        height: 0;
+        overflow-y: scroll;
+        background-color: #fff;
+        color: #191919;
+        border-radius: 3px;
+        z-index: -1;
+        transition: height 0.5s;
+
+        &--active {
+            height: 120px;
+            z-index: 3;
+        }
+    }
+
+    &__options-item {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        font-family: $mp-bold;
+        font-size: 12px;
+        line-height: 12px;
+        padding: 14px 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e5e5e5;
+        }
+    }
+
+    &__submit-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+
+        &::after {
+            position: absolute;
+            content: '';
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #fff;
+        }
+    }
+
+    &__submit {
+        appearance: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+        background: transparent;
+        font-family: $mp-bold;
+        font-size: 20px;
+        line-height: 20px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+}
+
+@media (min-width: $screen-desktop) {
+
+    .contact-form {
+
+        &__input-wrapper {
+            display: flex;
+            align-items: center;
+
+            &::after {
+                left: 140px;
+            }
+
+            &--last {
+                margin-bottom: 105px;
+            }
+
+            &--active {
+
+                &::after {
+                    width: calc(100% - 140px);
+                }
+            }
+        }
+
+        &__select-mark {
+            cursor: pointer;
+        }
+
+        &__label {
+            position: initial;
+            display: block;
+            width: 140px;
+            min-width: 140px;
+            font-size: 16px;
+            line-height: 16px;
+            padding-top: 5px;
+            cursor: pointer;
+        }
+
+        &__input {
+            font-size: 20px;
+            line-height: 20px;
+
+            &--select {
+                cursor: pointer;
+            }
+        }
+
+        &__options-list {
+            top: 69px;
+            left: 140px;
+            right: 0;
+            width: auto;
+
+            &--active {
+                height: 150px;
+            }
+        }
+
+        &__options-item {
+            font-size: 16px;
+            line-height: 16px;
+            height: 50px;
+            text-align: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
     }
 }

@@ -209,7 +209,7 @@ block content
                   li.social__item
                     a.social__link.social__link--fb(href="#fb") Fb
 
-                a(href="#").button.section__button
+                a(href="#")#contact.button.section__button
                   span Перезвоните мне
 
       .flex-container.flex-container--center.flex-container--fixed-bottom
@@ -218,7 +218,7 @@ block content
 
       #popup.popup
         .popup__container
-          .popup__button
+          .popup__button.main-nav__button.main-nav__button--active
           form.contact-form(action="#")
             .contact-form__input-wrapper
               label.contact-form__label(for="name") Имя
@@ -229,13 +229,18 @@ block content
             .contact-form__input-wrapper
               label.contact-form__label(for="email") E-mail
               input#email.contact-form__input(type="text", name="email", autocomplete="off")
-            .contact-form__input-wrapper
-              label.contact-form__label(for="country") Страна
+            .contact-form__input-wrapper.contact-form__input-wrapper--last.contact-form__input-wrapper--select
+              .contact-form__select-mark
+              label.contact-form__label.contact-form__label--select(for="country") Страна
               input.contact-form__input.contact-form__input--select(type="text", id="country", name="country", readonly)
               ul.contact-form__options-list
                 li.contact-form__options-item(data-name="Россия") Россия
                 li.contact-form__options-item(data-name="Польша") Польша
                 li.contact-form__options-item(data-name="Германия") Германия
+                li.contact-form__options-item(data-name="Франция") Франция
+                li.contact-form__options-item(data-name="Испания") Испания
+            .contact-form__submit-wrapper
+              input.contact-form__submit(type="submit", value="Отправить")
 
 
 //- block footer

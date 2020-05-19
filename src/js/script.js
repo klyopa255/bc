@@ -39,31 +39,50 @@ const BCApp = {
     navList: document.querySelectorAll('.main-nav__item'),
     navItemAct: '',
 
-    inputWrappers: document.querySelectorAll(".contact-form__input-wrapper"),
-		inputs: document.querySelectorAll(".contact-form__input"),
-		labels: document.querySelectorAll(".contact-form__label")
+    popup: document.querySelector('#popup'),
+
+    contactFormOpen: document.querySelector('#contact'),
+    contactForClose: document.querySelector('.popup__button'),
+    selectMark: document.querySelector('.contact-form__select-mark'),
+    inputWrappers: document.querySelectorAll('.contact-form__input-wrapper'),
+		inputs: document.querySelectorAll('.contact-form__input'),
+		labelSelect: document.querySelector('.contact-form__label--select'),
+		inputSelect: document.querySelector('.contact-form__input--select'),
+    labels: document.querySelectorAll('.contact-form__label'),
+    selectListWrapper: document.querySelector('.contact-form__options-list'),
+    selectList: document.querySelectorAll('.contact-form__options-item'),
 
   },
 
   selectors: {
 
     headerActClass: 'page-header--active',
+
     navBurgerActClass: 'main-nav__button--active',
     navButtonActClass: 'nav-button--active',
     navButtonTopClass: 'nav-button--top',
     navButtonNextClass: 'nav-button--next',
     navButtonScrollClass: 'nav-button--scroll',
+
     langActClass: 'lang--active',
     langListWrapperActClass: 'lang__list--active',
     langItemClass: 'lang__item',
     langItemActClass: 'lang__item--current',
+
     navActClass: 'main-nav--active',
     navMobClass: 'main-nav--mobile',
     navItemActClass: 'main-nav__item--current',
+
     sectActClass: 'sections__item--active',
     sectNoDisplayClass: 'sections__item--nodisplay',
-    inputWrapperActClass: "contact-form__input-wrapper==active",
-		labelActClass: "contact-form__label--active"
+
+    popupActClass: 'popup--active',
+
+    inputWrapperActClass: 'contact-form__input-wrapper--active',
+    selectMarkActClass: 'contact-form__select-mark--active',
+    labelActClass: 'contact-form__label--active',
+    inputSelectClass: 'contact-form__input--select',
+    selectListWrapperActClass: 'contact-form__options-list--active',
 
   },
 
@@ -317,33 +336,61 @@ const BCApp = {
 
   form: function () {
 
+    this.elems.contactFormOpen.addEventListener('click', (e) => {
+      this.actClassToggle(this.elems.popup, this.selectors.popupActClass);
+    });
+
+    this.elems.contactForClose.addEventListener('click', (e) => {
+      this.actClassToggle(this.elems.popup, this.selectors.popupActClass);
+    });
+
+    this.elems.selectMark.addEventListener('click', (e) => {
+      this.actClassToggle(e.target, this.selectors.selectMarkActClass);
+      this.actClassToggle(this.elems.selectListWrapper, this.selectors.selectListWrapperActClass);
+    });
+
 		this.elems.inputs.forEach((el, i, arr) => {
 
-			el.addEventListener("focus", (e) => {
+			el.addEventListener('focus', (e) => {
 
-				this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperActClass);
-				this.elems.labels[i].classList.add(this.selectors.labelActClass);
+        this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperActClass);
+        
+        if (this.screenWidth<1024) {
+          this.elems.labels[i].classList.add(this.selectors.labelActClass);
+        }
 
-				if (e.target.classList.contains(this.selectors.txtArea)) {
-					this.elems.inputWrappers[i].classList.add(this.selectors.txtAreaWrapper);
+				if (e.target.classList.contains(this.selectors.inputSelectClass)) {
+          this.elems.selectListWrapper.classList.add(this.selectors.selectListWrapperActClass);
+          this.elems.selectMark.classList.add(this.selectors.selectMarkActClass);
+				} else {
+          this.elems.selectListWrapper.classList.remove(this.selectors.selectListWrapperActClass);
+          this.elems.selectMark.classList.remove(this.selectors.selectMarkActClass);
+        }
+
+			});
+
+			el.addEventListener('blur', (e) => {
+
+				this.elems.inputWrappers[i].classList.remove(this.selectors.inputWrapperActClass);
+
+				if (e.target.value === '' && this.screenWidth<1024) {
+          this.elems.labels[i].classList.remove(this.selectors.labelActClass);
 				}
 
 			});
 
-			el.addEventListener("blur", (e) => {
-
-				this.elems.inputWrappers[i].classList.remove(this.selectors.inputActClass);
-
-				if (e.target.value === "") {
-					this.elems.labels[i].classList.remove(this.selectors.labelActClass);
-					if (e.target.classList.contains(this.selectors.txtArea)) {
-						this.elems.inputWrappers[i].classList.remove(this.selectors.txtAreaWrapper);
-					}
-				}
-
-			});
-
-		});
+    });
+    
+    this.elems.selectList.forEach((el, i, arr)=> {
+      el.addEventListener('click', (e) => {
+        this.elems.inputSelect.value = el.dataset.name;
+        this.elems.selectListWrapper.classList.remove(this.selectors.selectListWrapperActClass);
+        this.elems.selectMark.classList.remove(this.selectors.selectMarkActClass);
+        if (this.screenWidth<1024) {
+          this.elems.labelSelect.classList.add(this.selectors.labelActClass);
+        }
+      });
+    });
 
   },
 
@@ -393,33 +440,22 @@ ready( function() {
       items: 1,
       nav: true,
       dots: true,
-      loop: true,
-      //margin: 15,
-    //   responsiveClass: true,
-    //   responsive:{
-    //     0:{
-    //       items: 1,
-    //       nav: false,
-    //       dots: true
-    //     },
-    //     481:{
-    //         items: 2,
-    //         nav: true
-    //     },
-    //     767:{
-    //         items: 3,
-    //         nav: true
-    //     }
-    // }
+      loop: true
     });
   }
 
-  $(".accordion-item__line").click(function () {
-    var container = $(this).parents(".accordion-list__item");
-    var answer = container.find(".accordion-item");
-    var ansvers = $(".accordion-item");
+  $('.accordion-item__line').click(function () {
+    var container = $(this).parents('.accordion-list__item');
+    var answer = container.find('.accordion-item');
+    var ansvers = $('.accordion-item');
     ansvers.removeClass("accordion-item--opened");
     answer.addClass("accordion-item--opened");
+  });
+
+  $('#phone').inputmask({ alias: 'phone', 'clearIncomplete': false });
+
+  $('#phone').on('blur', function(e) {
+    let isValid = Inputmask.isValid($('#phone').val(), { alias: 'phone' });
   });
 
 });
