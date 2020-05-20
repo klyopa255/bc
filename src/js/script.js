@@ -37,6 +37,7 @@ const BCApp = {
 
     nav: document.querySelector('.main-nav'),
     navList: document.querySelectorAll('.main-nav__item'),
+    navLinks: document.querySelectorAll('.main-nav__item a'),
     navItemAct: '',
 
     popup: document.querySelector('#popup'),
@@ -394,8 +395,18 @@ const BCApp = {
 
   },
 
+  init: function () {
+
+    this.elems.navList.forEach((el, i, arr) => {
+      el.dataset.num = i;
+      el.dataset.name = el.firstChild.hash.slice(1);
+    });
+
+  },
+
   run: function () {
 
+    this.init();
     this.burgerNav();
     this.lang();
     this.location();

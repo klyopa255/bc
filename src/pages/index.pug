@@ -17,19 +17,19 @@ block header
 
       nav.main-nav
         ul.main-nav__list
-          li.main-nav__item(data-name="wellcome", data-num="0")
+          li.main-nav__item
             a(href="#wellcome").main-nav__link Главная
-          li.main-nav__item(data-name="about", data-num="1")
+          li.main-nav__item
             a(href="#about").main-nav__link О нас
-          li.main-nav__item(data-name="product", data-num="2")
+          li.main-nav__item
             a(href="#product").main-nav__link Продукт
-          li.main-nav__item(data-name="advantages", data-num="3")
+          li.main-nav__item
             a(href="#advantages").main-nav__link Преимущества
-          li.main-nav__item(data-name="road-map", data-num="4")
+          li.main-nav__item
             a(href="#road-map").main-nav__link Дорожная карта клуба
-          li.main-nav__item(data-name="faq", data-num="5")
+          li.main-nav__item
             a(href="#faq").main-nav__link FAQ
-          li.main-nav__item(data-name="contacts", data-num="6")
+          li.main-nav__item
             a(href="#contacts").main-nav__link Контакты
 
       .lang
@@ -239,8 +239,11 @@ block content
                 li.contact-form__options-item(data-name="Германия") Германия
                 li.contact-form__options-item(data-name="Франция") Франция
                 li.contact-form__options-item(data-name="Испания") Испания
-            .contact-form__submit-wrapper
-              input.contact-form__submit(type="submit", value="Отправить")
+            .flex-container
+              label.contact-form__submit-wrapper(for="subm")
+                input.contact-form__submit(type="submit", id="subm" value="Отправить")
+              .contact-form__before-wrapper
+                span Вернуться назад
 
 
 //- block footer
