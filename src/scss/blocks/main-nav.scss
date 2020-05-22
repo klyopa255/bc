@@ -101,7 +101,6 @@
     display: block;
     opacity: 0;
     z-index: -1;
-    padding-right: 5vw;
     transition: opacity 0.5s, z-index 0.5s 1s;
 
     &__list {

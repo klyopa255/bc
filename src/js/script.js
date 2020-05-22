@@ -232,14 +232,6 @@ const BCApp = {
     }
   },
 
-  click: function () {
-    this.elems.sectContainerFaq.addEventListener('click', (e) => {
-      setTimeout(()=>{
-        console.log(this);
-      },500);
-    });
-  },
-
   scroll: function () {
     this.elems.sectContainerFaq.addEventListener('scroll', (e)=> {
       if(this.elems.actSect.dataset.name === 'faq' && $('.faq-bottom').isOnScreen()) {
@@ -411,7 +403,6 @@ const BCApp = {
     this.lang();
     this.location();
     this.menuToggle();
-    this.click();
     this.form();
 
     if(this.screenWidth>1023) {
@@ -456,11 +447,16 @@ ready( function() {
   }
 
   $('.accordion-item__line').click(function () {
+    console.log($(this).parents('.accordion-list__item'));
     var container = $(this).parents('.accordion-list__item');
     var answer = container.find('.accordion-item');
-    var ansvers = $('.accordion-item');
-    ansvers.removeClass("accordion-item--opened");
-    answer.addClass("accordion-item--opened");
+    var answers = $('.accordion-item');
+    if(answer.hasClass('accordion-item--opened')) {
+      answers.removeClass('accordion-item--opened');
+    } else {
+      answers.removeClass('accordion-item--opened');
+      answer.addClass('accordion-item--opened');
+    }
   });
 
   $('#phone').inputmask({ alias: 'phone', 'clearIncomplete': false });
