@@ -45,16 +45,13 @@ const BCApp = {
 
     popup: document.querySelector('#popup'),
 
+    contactForm: document.querySelector('.contact-form'),
     contactFormOpen: document.querySelector('#contact'),
     contactForClose: document.querySelector('.popup__button'),
-    selectMark: document.querySelector('.contact-form__select-mark'),
     inputWrappers: document.querySelectorAll('.contact-form__input-wrapper'),
 		inputs: document.querySelectorAll('.contact-form__input'),
-		labelSelect: document.querySelector('.contact-form__label--select'),
-		inputSelect: document.querySelector('.contact-form__input--select'),
     labels: document.querySelectorAll('.contact-form__label'),
-    selectListWrapper: document.querySelector('.contact-form__options-list'),
-    selectList: document.querySelectorAll('.contact-form__options-item'),
+    notices: document.querySelectorAll('.contact-form__notice'),
     submitWrapper: document.querySelector('.contact-form__submit-wrapper'),
     submitInput: document.querySelector('.contact-form__submit'),
 
@@ -86,10 +83,8 @@ const BCApp = {
 
     inputWrapperActClass: 'contact-form__input-wrapper--active',
     inputWrapperInvalidClass: 'contact-form__input-wrapper--invalid',
-    selectMarkActClass: 'contact-form__select-mark--active',
     labelActClass: 'contact-form__label--active',
-    inputSelectClass: 'contact-form__input--select',
-    selectListWrapperActClass: 'contact-form__options-list--active',
+    noticeActClass: 'contact-form__notice--active',
     submitWrapperInvalidClass: 'contact-form__submit-wrapper--disabled',
 
   },
@@ -101,6 +96,13 @@ const BCApp = {
     'phone': false,
     'email': false,
     'country': false
+  },
+
+  isInputBlured: {
+    name: false,
+    phone: false,
+    email: false,
+    country: false
   },
 
   actClassToggle: function (el, actClass) {
@@ -363,36 +365,21 @@ const BCApp = {
       this.actClassToggle(this.elems.popup, this.selectors.popupActClass);
     });
 
-    this.elems.selectMark.addEventListener('click', (e) => {
-      this.actClassToggle(e.target, this.selectors.selectMarkActClass);
-      this.actClassToggle(this.elems.selectListWrapper, this.selectors.selectListWrapperActClass);
-    });
-
 		this.elems.inputs.forEach((el, i, arr) => {
 
 			el.addEventListener('focus', (e) => {
 
-        this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperActClass);
+        if(!this.elems.inputWrappers[i].classList.contains(this.selectors.inputWrapperInvalidClass)) {
+          this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperActClass);
+        }
         
         if (this.screenWidth<1024) {
           this.elems.labels[i].classList.add(this.selectors.labelActClass);
         }
 
-				if (e.target.classList.contains(this.selectors.inputSelectClass)) {
-          this.elems.selectListWrapper.classList.add(this.selectors.selectListWrapperActClass);
-          this.elems.selectMark.classList.add(this.selectors.selectMarkActClass);
-				} else {
-          this.elems.selectListWrapper.classList.remove(this.selectors.selectListWrapperActClass);
-          this.elems.selectMark.classList.remove(this.selectors.selectMarkActClass);
-        }
-
 			});
 
 			el.addEventListener('blur', (e) => {
-
-        let counter;
-        counter++;
-        console.log(counter);
 
 				this.elems.inputWrappers[i].classList.remove(this.selectors.inputWrapperActClass);
 
@@ -400,47 +387,66 @@ const BCApp = {
           this.elems.labels[i].classList.remove(this.selectors.labelActClass);
         }
 
-        if (e.target.id !== 'country') {
+        if (e.target.id !== 'phone') {
           this.isValidForm[e.target.id] = this.validation(e.target);
           this.submitActivate();
+        }
+
+        if (e.target.value.length>0 && !this.isValidForm[e.target.id]) {
+          this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperInvalidClass);
+          this.elems.notices[i].classList.add(this.selectors.noticeActClass);
+        } else if (e.target.value.length>0 && this.isValidForm[e.target.id]) {
+          this.elems.inputWrappers[i].classList.remove(this.selectors.inputWrapperInvalidClass);
+          this.elems.notices[i].classList.remove(this.selectors.noticeActClass);
+        }
+
+        if (e.target.value.length>0) {
+          this.isInputBlured[e.target.id] = true;
+        }
+
+      });
+
+      el.addEventListener('input', (e) => {
+
+        if (e.target.id !== 'phone') {
+          this.isValidForm[e.target.id] = this.validation(e.target);
+          this.submitActivate();
+        }
+
+        if (this.isInputBlured[e.target.id] && this.isValidForm[e.target.id]) {
+          this.elems.inputWrappers[i].classList.remove(this.selectors.inputWrapperInvalidClass);
+          this.elems.notices[i].classList.remove(this.selectors.noticeActClass);
+          this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperActClass);
+        } else if (this.isInputBlured[e.target.id] && !this.isValidForm[e.target.id]) {
+          this.elems.inputWrappers[i].classList.add(this.selectors.inputWrapperInvalidClass);
+          this.elems.notices[i].classList.add(this.selectors.noticeActClass);
+          this.elems.inputWrappers[i].classList.remove(this.selectors.inputWrapperActClass);
         }
 
       });
 
     });
 
-    this.elems.selectList.forEach((el, i, arr) => {
-      el.addEventListener('click', (e) => {
-        this.elems.inputSelect.value = el.dataset.name;
-        this.isValidForm.country = true;
-        this.submitActivate();
-        this.elems.selectListWrapper.classList.remove(this.selectors.selectListWrapperActClass);
-        this.elems.selectMark.classList.remove(this.selectors.selectMarkActClass);
-        if (this.screenWidth<1024) {
-          this.elems.labelSelect.classList.add(this.selectors.labelActClass);
-        }
-      });
+    this.elems.submitWrapper.addEventListener('click', (e) => {
+      console.log(1);
     });
 
   },
 
   validation: function (el) {
 
-    if (el.id === 'name') {
+    if (el.id === 'name' || el.id === 'country') {
       return /^[a-zA-Zа-яА-ЯёЁ'][a-zA-Z-а-яА-ЯёЁ' ]+[a-zA-Zа-яА-ЯёЁ']?$/.test(el.value);
-    } else if (el.id === 'phone') {
-      return Inputmask.isValid($('#phone').val(), { alias: 'phone' });
-    } else if (el.id === 'email') {
-      return /^([a-z0-9_\.-])+[@][a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/.test(el.value);
-    } else if (el.id === 'country') {
-      return !!el.value.length;
+    }
+    else if (el.id === 'email') {
+      return /.+@.+\..+/i.test(el.value);
     }
   },
 
   submitActivate: function () {
     if (this.isValidForm.name&&this.isValidForm.phone&&this.isValidForm.email&&this.isValidForm.country) {
       this.elems.submitWrapper.classList.remove(this.selectors.submitWrapperInvalidClass);
-      this.elems.submitInput.removeAttribute('disabled');
+      this.elems.submitInput.removeAttribute('disabled', false);
     } else {
       this.elems.submitWrapper.classList.add(this.selectors.submitWrapperInvalidClass);
       this.elems.submitInput.setAttribute('disabled', true);
@@ -521,8 +527,22 @@ ready( function() {
 
   $('#phone').inputmask({ alias: 'phone', 'clearIncomplete': false });
 
-  $('#phone').on('blur', function(e) {
-    let isValid = Inputmask.isValid($('#phone').val(), { alias: 'phone' });
+  $('#phone').on('input', function(e) {
+    if ($('#phone').inputmask("isComplete")) {
+      BCApp.isValidForm.phone = true;
+    } else {
+      BCApp.isValidForm.phone = false;
+    }
+    if (BCApp.isInputBlured[e.target.id] && !BCApp.isValidForm[e.target.id]) {
+      $('#phone').parent().removeClass(BCApp.selectors.inputWrapperActClass);
+      $('#phone').parent().addClass(BCApp.selectors.inputWrapperInvalidClass);
+      $('#phone').next().addClass(BCApp.selectors.noticeActClass);
+    } else if (BCApp.isInputBlured[e.target.id] && BCApp.isValidForm[e.target.id]) {
+      $('#phone').parent().addClass(BCApp.selectors.inputWrapperActClass);
+      $('#phone').parent().removeClass(BCApp.selectors.inputWrapperInvalidClass);
+      $('#phone').next().removeClass(BCApp.selectors.noticeActClass);
+    }
+    BCApp.submitActivate();
   });
 
 });
