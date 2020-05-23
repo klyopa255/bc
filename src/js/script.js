@@ -40,6 +40,9 @@ const BCApp = {
     navLinks: document.querySelectorAll('.main-nav__item a'),
     navItemAct: '',
 
+    buttonMore: document.getElementById('button-more'),
+    buttonTales: document.getElementById('button-tales'),
+
     popup: document.querySelector('#popup'),
 
     contactFormOpen: document.querySelector('#contact'),
@@ -52,6 +55,8 @@ const BCApp = {
     labels: document.querySelectorAll('.contact-form__label'),
     selectListWrapper: document.querySelector('.contact-form__options-list'),
     selectList: document.querySelectorAll('.contact-form__options-item'),
+    submitWrapper: document.querySelector('.contact-form__submit-wrapper'),
+    submitInput: document.querySelector('.contact-form__submit'),
 
   },
 
@@ -80,14 +85,23 @@ const BCApp = {
     popupActClass: 'popup--active',
 
     inputWrapperActClass: 'contact-form__input-wrapper--active',
+    inputWrapperInvalidClass: 'contact-form__input-wrapper--invalid',
     selectMarkActClass: 'contact-form__select-mark--active',
     labelActClass: 'contact-form__label--active',
     inputSelectClass: 'contact-form__input--select',
     selectListWrapperActClass: 'contact-form__options-list--active',
+    submitWrapperInvalidClass: 'contact-form__submit-wrapper--disabled',
 
   },
 
   hashes: [],
+
+  isValidForm: {
+    'name': false,
+    'phone': false,
+    'email': false,
+    'country': false
+  },
 
   actClassToggle: function (el, actClass) {
     if (el && actClass) {
@@ -262,6 +276,14 @@ const BCApp = {
     });
   },
 
+  click: function () {
+
+    this.elems.buttonMore.addEventListener('click', (e) => {
+      this.countToggle(1);
+    });
+
+  },
+
   location: function () {
 
     this.hashes = (() => {
@@ -329,6 +351,10 @@ const BCApp = {
 
   form: function () {
 
+    this.elems.buttonTales.addEventListener('click', (e) => {
+      this.actClassToggle(this.elems.popup, this.selectors.popupActClass);
+    });
+
     this.elems.contactFormOpen.addEventListener('click', (e) => {
       this.actClassToggle(this.elems.popup, this.selectors.popupActClass);
     });
@@ -368,15 +394,22 @@ const BCApp = {
 
 				if (e.target.value === '' && this.screenWidth<1024) {
           this.elems.labels[i].classList.remove(this.selectors.labelActClass);
-				}
+        }
 
-			});
+        if (e.target.id !== 'country') {
+          this.isValidForm[e.target.id] = this.validation(e.target);
+          this.submitActivate();
+        }
+
+      });
 
     });
-    
-    this.elems.selectList.forEach((el, i, arr)=> {
+
+    this.elems.selectList.forEach((el, i, arr) => {
       el.addEventListener('click', (e) => {
         this.elems.inputSelect.value = el.dataset.name;
+        this.isValidForm.country = true;
+        this.submitActivate();
         this.elems.selectListWrapper.classList.remove(this.selectors.selectListWrapperActClass);
         this.elems.selectMark.classList.remove(this.selectors.selectMarkActClass);
         if (this.screenWidth<1024) {
@@ -385,6 +418,29 @@ const BCApp = {
       });
     });
 
+  },
+
+  validation: function (el) {
+
+    if (el.id === 'name') {
+      return /^[a-zA-Zа-яА-ЯёЁ'][a-zA-Z-а-яА-ЯёЁ' ]+[a-zA-Zа-яА-ЯёЁ']?$/.test(el.value);
+    } else if (el.id === 'phone') {
+      return Inputmask.isValid($('#phone').val(), { alias: 'phone' });
+    } else if (el.id === 'email') {
+      return /^([a-z0-9_\.-])+[@][a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/.test(el.value);
+    } else if (el.id === 'country') {
+      return !!el.value.length;
+    }
+  },
+
+  submitActivate: function () {
+    if (this.isValidForm.name&&this.isValidForm.phone&&this.isValidForm.email&&this.isValidForm.country) {
+      this.elems.submitWrapper.classList.remove(this.selectors.submitWrapperInvalidClass);
+      this.elems.submitInput.removeAttribute('disabled');
+    } else {
+      this.elems.submitWrapper.classList.add(this.selectors.submitWrapperInvalidClass);
+      this.elems.submitInput.setAttribute('disabled', true);
+    }
   },
 
   init: function () {
@@ -403,6 +459,7 @@ const BCApp = {
     this.lang();
     this.location();
     this.menuToggle();
+    this.click();
     this.form();
 
     if(this.screenWidth>1023) {
@@ -447,7 +504,6 @@ ready( function() {
   }
 
   $('.accordion-item__line').click(function () {
-    console.log($(this).parents('.accordion-list__item'));
     var container = $(this).parents('.accordion-list__item');
     var answer = container.find('.accordion-item');
     var answers = $('.accordion-item');

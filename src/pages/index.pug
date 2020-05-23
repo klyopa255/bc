@@ -55,7 +55,7 @@ block content
               .section__content
                 p.section__promo Международное сообщество для бизнеса и инвестиций
                 .flex-container.flex-container--center
-                  a(href="#").button.section__button
+                  a(href="#")#button-more.button.section__button
                     span Узнать больше
 
         li.sections__item(id="about" data-name="about", data-num="1")
@@ -78,7 +78,7 @@ block content
                 h3 Направление инвестиций
                 p.section__text На сегодняшний день мы выбрали первым направлением инвестиции в предприятие стабильно работающее на рынке торговли драгоценными металлами в Объединенных Арабских Эмиратах и Африке.
                 .flex-container
-                  a(href="#").button.section__button
+                  a(href="#")#button-tales.button.section__button
                     span  Узнать подробнее
 
         li.sections__item(id="advantages" data-name="advantages", data-num="3")
@@ -239,9 +239,9 @@ block content
                 li.contact-form__options-item(data-name="Германия") Германия
                 li.contact-form__options-item(data-name="Франция") Франция
                 li.contact-form__options-item(data-name="Испания") Испания
-            .flex-container
-              label.contact-form__submit-wrapper(for="subm")
-                input.contact-form__submit(type="submit", id="subm" value="Отправить")
+            .flex-container.contact-form__buttons-container
+              label.contact-form__submit-wrapper.contact-form__submit-wrapper--disabled(for="subm")
+                input.contact-form__submit(type="submit", id="subm", value="Отправить" disabled)
               .contact-form__before-wrapper
                 span Вернуться назад
 
