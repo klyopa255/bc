@@ -390,6 +390,10 @@ const BCApp = {
 
 			el.addEventListener('blur', (e) => {
 
+        let counter;
+        counter++;
+        console.log(counter);
+
 				this.elems.inputWrappers[i].classList.remove(this.selectors.inputWrapperActClass);
 
 				if (e.target.value === '' && this.screenWidth<1024) {

@@ -34,6 +34,20 @@
                 width: 100%;
             }
         }
+
+        &--invalid {
+
+            &::before {
+                position: absolute;
+                content: '';
+                width: 0;
+                height: 1px;
+                bottom: 0;
+                left: 0;
+                background-color: red;
+                transition: width 0.5s;
+            }
+        }
     }
 
     &__select-mark {
@@ -186,6 +200,7 @@
 
         &__input-wrapper {
             display: flex;
+            justify-content: space-between;
             align-items: center;
 
             &::after {
@@ -210,16 +225,16 @@
 
         &__label {
             position: initial;
-            display: block;
-            width: 140px;
-            min-width: 140px;
             font-size: 16px;
             line-height: 16px;
             padding-top: 5px;
             cursor: pointer;
+            user-select: none;
         }
 
         &__input {
+            width: 510px;
+            min-width: 510px;
             font-size: 20px;
             line-height: 20px;
 
@@ -248,11 +263,50 @@
             padding-bottom: 15px;
         }
 
+        &__buttons-container {
+            position: relative;
+        }
+
         &__submit-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            transition: top 0.5s, padding-bottom 0.5s;
+
+            &::before {
+                position: absolute;
+                content: '';
+                bottom: 10px;
+                left: 0;
+                width: 0;
+                height: 1px;
+                background-color: #fff;
+                transition: width 0.5s;
+            }
 
 
             &:hover {
+                top: -20px;
                 padding-bottom: 30px;
+
+                &::before {
+                    width: 100%;
+                }
+            }
+
+            &--disabled {
+                cursor: default;
+                opacity: 0.5;
+
+                &:hover {
+                    top: 0;
+                    padding-bottom: 10px;
+
+                    &::before {
+                        content: none;
+                    }
+                }
             }
         }
 
@@ -260,10 +314,19 @@
             cursor: pointer;
             font-size: 22px;
             line-height: 22px;
+
+            &[disabled] {
+                cursor: default;
+            }
         }
 
         &__before-wrapper {
             display: block;
+            font-family: $mp-bold;
+            font-size: 14px;
+            line-height: 24px;
+            margin-left: auto;
+            text-transform: uppercase;
         }
     }
 }
